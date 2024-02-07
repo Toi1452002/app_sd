@@ -42,14 +42,19 @@ extension FormatDouble on String {
   }
 }
 //
-Future<String> idDevice()async{
+Future<String> idDevice() async{
   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
   try{
     if(Platform.isAndroid){
       AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
       Info_App.API_DEVICE = androidInfo.version.sdkInt;
       return "${androidInfo.id}.${randomStr()}${randomNumber()}";
-    }else{
+    }else if(Platform.isIOS){
+      IosDeviceInfo ios = await deviceInfo.iosInfo;
+      return "${ios.model}.${randomStr()}${randomNumber()}";
+    }
+
+    else{
       final wd = await deviceInfo.windowsInfo;
       return wd.deviceId.replaceAll('{', '').replaceAll('}', '');
     }

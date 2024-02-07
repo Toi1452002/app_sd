@@ -37,9 +37,9 @@ List<GetPage> getRouter(){
     GetPage(name: routerName.v_themkhach, page: ()=>V_ThemKhach(),binding: BindingsBuilder(()=>Get.lazyPut(() => Ctl_GiaKhach()))),
     GetPage(name: routerName.v_thaythetukhoa, page: ()=>const V_ThaytheTK()),
     GetPage(name: routerName.v_bcTongTien, page: ()=>const V_BcTongTien()),
-    GetPage(name: routerName.v_caidat, page: ()=>const V_CaiDat()),
+    GetPage(name: routerName.v_caidat, page: ()=> V_CaiDat()),
     GetPage(name: routerName.v_qltin_ct, page: ()=>const V_QLTin_CT()),
-    GetPage(name: routerName.v_xuly, page: ()=>const V_Xuly()),
+    GetPage(name: routerName.v_xuly, page: ()=> V_Xuly()),
   ];
 }
 

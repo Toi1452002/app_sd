@@ -50,8 +50,9 @@ Future<String> idDevice() async{
       Info_App.API_DEVICE = androidInfo.version.sdkInt;
       return "${androidInfo.id}.${randomStr()}${randomNumber()}";
     }else if(Platform.isIOS){
-      IosDeviceInfo ios = await deviceInfo.iosInfo;
-      return "${ios.model}.${randomStr()}${randomNumber()}";
+      String ma = "MLGK.";
+      String time = DateTime.now().microsecondsSinceEpoch.toString();
+      return "$ma${randomStr()}${time.substring(0,4)}.${randomStr()}${time.substring(4,8)}.${randomStr()}${time.substring(time.length-4)}";
     }
 
     else{

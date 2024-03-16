@@ -11,7 +11,7 @@ Container cell_Header({required String text, double height = 35, Color? color, b
       border: border ? Border.all(color: Sv_Color.main[200]!,width: 0.3): null
     ),
 
-    child: Text(text,style: const TextStyle(fontSize: 15),),
+    child: Text(text,),
   );
 }
 
@@ -25,6 +25,6 @@ Container cell_Body({required String text, double height = 35, int index = 0, Co
         border: Border.all(color: Colors.blueGrey[100]!,width: 0.2)
     ),
 
-    child: Text(text,style: TextStyle(fontSize: 15,color: textColor??Colors.black),),
+    child: Text(text,style: TextStyle(color: textColor??Colors.black),),
   );
 }

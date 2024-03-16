@@ -43,17 +43,62 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double scaleText = MediaQuery.textScalerOf(context).scale(1);
     return  GetMaterialApp(
       debugShowCheckedModeBanner: false,
       initialBinding: InitBingding(),
       theme: ThemeData(
+        listTileTheme: ListTileThemeData(
+          subtitleTextStyle: TextStyle(
+              fontSize: 16/scaleText,
+            color: Colors.grey
+          )
+        ),
+        textTheme: TextTheme(
+          bodyLarge: TextStyle(
+            fontSize: 16/scaleText
+          ),
+          bodyMedium: TextStyle(
+              fontSize: 16/scaleText
+          ),
+          bodySmall: TextStyle(
+              fontSize: 16/scaleText
+          ),
+
+
+        ),
+       elevatedButtonTheme: ElevatedButtonThemeData(
+         style: ButtonStyle(
+           textStyle: MaterialStateProperty.all(TextStyle(
+             fontSize: 16 / scaleText
+           ))
+         )
+       ),
+        datePickerTheme: DatePickerThemeData(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+          headerHeadlineStyle: TextStyle(
+              fontSize: 35/scaleText
+          )
+        ),
+        textButtonTheme: TextButtonThemeData(
+          style: ButtonStyle(
+            textStyle: MaterialStateProperty.all(TextStyle(
+                fontSize: 16 / scaleText
+            )),
+            shape: MaterialStateProperty.all(const RoundedRectangleBorder(borderRadius: BorderRadius.zero))
+          )
+        ),
+
         colorSchemeSeed: Colors.blue,
         dialogTheme: DialogTheme(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10)
+            borderRadius: BorderRadius.circular(5)
           )
         ),
-        appBarTheme: const AppBarTheme(color: Sv_Color.main)
+        appBarTheme: AppBarTheme(color: Sv_Color.main,titleTextStyle: TextStyle(
+          fontSize: 20/scaleText,
+          color: Colors.black
+        ))
       ),
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
@@ -89,6 +134,7 @@ void configLoading() {
     ..loadingStyle = EasyLoadingStyle.dark
     ..indicatorSize = 45.0
     ..radius = 10.0
+    // ..fontSize = Theme.of(context).textTheme.bodyLarge.fontSize
     ..progressColor = Colors.white
     ..backgroundColor = Colors.green
     ..indicatorColor = Colors.yellow

@@ -72,7 +72,7 @@ class Tbl_BCTongHop extends StatelessWidget {
                   decoration: BoxDecoration(
                       color: Sv_Color.main[100]
                   ),
-                  child: Text(data[i]['Khach'],style: const TextStyle(fontSize: 17,fontWeight: FontWeight.bold),),
+                  child: Text(data[i]['Khach'],style: const TextStyle(fontWeight: FontWeight.bold),),
                 );
               }else{
                 return InkWell(onLongPress: (){

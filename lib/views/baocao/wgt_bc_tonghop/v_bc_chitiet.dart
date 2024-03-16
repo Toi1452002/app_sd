@@ -34,7 +34,7 @@ class VBC_ChiTiet extends StatelessWidget {
                     alignment: Alignment.center,
                     color: Colors.grey,
                     child: Text((i+1).toString(),style: TextStyle(
-                      fontSize: 15,
+                      // fontSize: 15,
                       color: Colors.white,
                       fontWeight: FontWeight.bold
                     ),),
@@ -67,11 +67,11 @@ class VBC_ChiTiet extends StatelessWidget {
                                 text: "Xác:",
                                 sb: 23,
                                 wgt: Text(data[i]['Xac'].toString(),
-                                    style: const TextStyle(fontSize: 16))),
+                                     )),
                             itemKQ(
                                 text: "Vốn:",
                                 wgt: Text(data[i]['Von'].toString(),
-                                    style: const TextStyle(fontSize: 16))),
+                                   )),
                           ],
                         ),
                         const SizedBox(
@@ -83,7 +83,7 @@ class VBC_ChiTiet extends StatelessWidget {
                             itemKQ(
                                 text: "Trúng:",
                                 wgt: Text(data[i]['Trung'].toString(),
-                                    style: const TextStyle(fontSize: 16))),
+                                    )),
                             itemKQ(
                                 text: "Tổng:",
                                 wgt: Text(
@@ -94,7 +94,7 @@ class VBC_ChiTiet extends StatelessWidget {
                                               .contains('-')
                                           ? Colors.red
                                           : Colors.blue,
-                                      fontSize: 16),
+                                       ),
                                 )),
                           ],
                         ),
@@ -334,7 +334,7 @@ class VBC_ChiTiet extends StatelessWidget {
             PopupMenuItem(
                 textStyle:
                 const TextStyle(color: Colors.black),
-                child: Text(data['SoTrung']))
+                child: Text(data['SoTrung'],style: Theme.of(context).textTheme.bodyLarge,))
           ],
           child: SizedBox(height: 30,child: Padding(
             padding: const EdgeInsets.only(top: 5,left: 3),
@@ -384,7 +384,6 @@ Row itemKQ(
     children: [
       Text(
         text,
-        style: const TextStyle(fontSize: 15),
       ),
       SizedBox(
         width: sb,

@@ -23,17 +23,18 @@ class V_KichHoat extends StatelessWidget {
           child: Center(
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 10),
-              height: 300,
+              // height: 300,
               decoration: const BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  borderRadius: BorderRadius.all(Radius.circular(5)),
                   boxShadow: [
                     BoxShadow(
                         color: Colors.blueGrey,
-                        blurRadius: 10,
-                        offset: Offset(3, 3))
+                        blurRadius: 5,
+                        offset: Offset(2, 2))
                   ]),
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   const SizedBox(height: 10,),
                   Wgt_TextField(
@@ -55,6 +56,7 @@ class V_KichHoat extends StatelessWidget {
                   Wgt_button(onPressed: (){
                     controller.onKichHoat();
                   }, text: 'Kích hoạt',height: 40),
+                  const SizedBox(height: 10,),
                 ],
               ),
             ),

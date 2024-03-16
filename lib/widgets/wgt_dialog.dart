@@ -14,33 +14,24 @@ void Wgt_Dialog(
   Get.dialog(
       Dialog(
         insetPadding: const EdgeInsets.symmetric(horizontal: 40),
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-        ),
-        child: Container(
+        child: SizedBox(
           width: 200,
-          height: 170,
-          decoration: const BoxDecoration(
-          ),
+          // height: 170,
           child: Column(
             mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(flex: 3,child: Container(
-                alignment: Alignment.topLeft,
-                child: Padding(
-                  padding: const EdgeInsets.all(15),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(title, style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 25),),
-                      const SizedBox(height: 10,),
-                      Text(text, style: const TextStyle( fontSize: 15),)
-                    ],
-                  ),
-                ),
-              )),
-              Expanded(flex: 1,child: Container(
+              Padding(
+                padding: const EdgeInsets.only(left: 10,top: 10),
+                child: Text(title, style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 10,top: 5,bottom: 10),
+                child: Text(text ,),
+              ),
+              SizedBox(height: 10,),
+              Container(
+                height: 40,
                 decoration: BoxDecoration(
                   color: Colors.grey[200],
                   borderRadius: const BorderRadius.vertical(bottom: Radius.circular(10)),
@@ -49,11 +40,11 @@ void Wgt_Dialog(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Expanded(child: TextButton(onPressed: ()=>Get.back(), child: const Text("Hủy"),)),
+                    Expanded(child: TextButton(onPressed: ()=>Get.back(), child: const Text("Hủy",style: TextStyle(color: Colors.red),),)),
                     Expanded(child: TextButton(onPressed: onConfirm, child: const Text("Chấp nhận")))
                   ],
                 ),
-              )),
+              ),
 
             ],
           ),

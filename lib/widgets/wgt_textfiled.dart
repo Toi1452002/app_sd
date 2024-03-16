@@ -15,6 +15,7 @@ class Wgt_TextField extends StatelessWidget {
       this.onChanged,
       this.obscureText,
       this.icon,
+      this.style,
       this.fillColor,
       this.borderRadius,
       this.enable,
@@ -37,7 +38,7 @@ class Wgt_TextField extends StatelessWidget {
   Icon? icon;
   bool? enable;
   int? maxLenght;
-
+  TextStyle? style;
   List<TextInputFormatter>? inputFormatters;
   BorderRadius? borderRadius;
   Color? fillColor;
@@ -51,6 +52,7 @@ class Wgt_TextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       enabled: enable,
+      // style: style?? TextStyle(fontSize: 11),
       // onSubmitted: onSubmitted,
       undoController:undoController ,
       controller: controller,
@@ -70,6 +72,8 @@ class Wgt_TextField extends StatelessWidget {
       decoration: InputDecoration(
           counterText: '',
           // icon: icon,
+          // hintStyle: TextStyle(fontSize: 11),
+          // labelStyle: TextStyle(fontSize: 11),
           filled: fillColor!=null ? true : false,
           fillColor: fillColor,
           prefixIcon: icon,

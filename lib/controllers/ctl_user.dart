@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:sd_pmn/config/router.dart';
 import 'package:sd_pmn/config/server.dart';
 import 'package:sd_pmn/database/connect_dbw.dart';
+import 'package:sd_pmn/widgets/wgt_dialog.dart';
 
 import '../database/db_connect.dart';
 import '../function/extension.dart';
@@ -104,18 +106,23 @@ class Ctl_User extends GetxController{
                 await dbw.updateData(tbName: 'KHACH_SD', field: 'NgayLamViec',value: DateFormat('yyyy-MM-dd').format(DateTime.now()),condition: "MaKH ='${data['MaKH']}'");
                 onUpdateServer('#', 0,  user['MaKH'], tenDNCTL.text);
               }
-            }else{
-              await db.updateCell(tbName: 'T00_User',field: 'MaKichHoat',value: '',condition: "ID = 1");
-              await db.updateCell(tbName: 'T00_User',field: 'MaKichHoat',value: '',condition: "ID = 2").whenComplete((){
-                EasyLoading.showInfo('Không tìm thấy tài khoản');
-                Future.delayed(const Duration(seconds: 2),()=>Get.offAndToNamed(routerName.v_kichhoat));
+            }else{//Không tìm thấy tài khoản
+              EasyLoading.dismiss();
+              Wgt_Dialog(title: 'Thông báo', text: 'Không tìm thấy thiết bị, vui lòng kích hoạt lại ứng dụng!', onConfirm: () async {
+                await db.updateCell(tbName: 'T00_User',field: 'MaKichHoat',value: '',condition: "ID = 1");
+                await db.updateCell(tbName: 'T00_User',field: 'MaKichHoat',value: '',condition: "ID = 2").whenComplete((){
+                  Get.offAndToNamed(routerName.v_kichhoat);
+                });
               });
             }
 
 
           }
-        }else{///Không sài vĩnh viễn
+        }
+        else{///Không sài vĩnh viễn
           if(!await hasNetwork()) {EasyLoading.showToast(Sv_String.noHasNetwork);return;}
+
+
           Map<String, dynamic> data = await dbw.loadRow(tblName: 'KHACH_SD', condition: "MaKH = '${user['MaKH']}' AND MaKichHoat = '${user['MaKichHoat']}' AND TrangThai = 1 AND DaXoa = 0");
           if(data.isNotEmpty){
             await db.updateCell(tbName: 'T00_User',field: 'NgayHetHan',value: data['NgayHetHan']);
@@ -144,11 +151,14 @@ class Ctl_User extends GetxController{
 
         }
           else{//Nếu không tìm thấy trên web thì kích hoạt lại
-            await db.updateCell(tbName: 'T00_User',field: 'MaKichHoat',value: '',condition: "ID = 1");
-            await db.updateCell(tbName: 'T00_User',field: 'MaKichHoat',value: '',condition: "ID = 2").whenComplete((){
-              EasyLoading.showInfo('Không tìm thấy tài khoản');
-              Future.delayed(const Duration(seconds: 2),()=>Get.offAndToNamed(routerName.v_kichhoat));
+            EasyLoading.dismiss();
+            Wgt_Dialog(title: 'Thông báo', text: 'Không tìm thấy thiết bị, vui lòng kích hoạt lại ứng dụng!', onConfirm: () async {
+              await db.updateCell(tbName: 'T00_User',field: 'MaKichHoat',value: '',condition: "ID = 1");
+              await db.updateCell(tbName: 'T00_User',field: 'MaKichHoat',value: '',condition: "ID = 2").whenComplete((){
+                Get.offAndToNamed(routerName.v_kichhoat);
+              });
             });
+
           }
         }
       }else{

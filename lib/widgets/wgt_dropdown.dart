@@ -41,11 +41,11 @@ class Wgt_Dropdown extends StatelessWidget {
               color: Colors.black,
 
             ),
-            hint: Text(hint),
+            hint: Text(hint,style: Theme.of(context).textTheme.bodyMedium,),
             value: value,
             items: items.map((String e) => DropdownMenuItem(
               value: e,
-              child: Text(e),
+              child: Text(e,style: Theme.of(context).textTheme.bodyMedium,),
             ))
                 .toList(),
 

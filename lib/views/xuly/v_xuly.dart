@@ -1,5 +1,6 @@
 import 'dart:ffi';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -17,6 +18,7 @@ class V_Xuly extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double scaleText = MediaQuery.textScalerOf(context).scale(1);
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
       child: Scaffold(
@@ -41,14 +43,10 @@ class V_Xuly extends StatelessWidget {
                     Ctl_Xuly().to.onChange(newDate, kieu: 'ngay');
                   }
                 },
-                // style: ElevatedButton.styleFrom(
-                //     backgroundColor: Colors.blueGrey[200],
-                //     padding: EdgeInsets.symmetric(horizontal: 5),
-                //     shape: const BeveledRectangleBorder()),
                 text: DateFormat("dd/MM/yyyy").format(Ctl_Xuly().to.ngaylam),
               )),
               PopupMenuButton(itemBuilder: (context)=>[
-                const PopupMenuItem(textStyle: TextStyle(color: Colors.black),child: Text('Tin SMS'),value: 1,)
+                PopupMenuItem(child: Text('Tin SMS',style: Theme.of(context).textTheme.bodyLarge,),value: 1,)
               ],
               onSelected: (value){
                 if(value==1){
@@ -75,7 +73,7 @@ class V_Xuly extends StatelessWidget {
                         const Text(
                           "Khách: ",
                           style: TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.bold),
+                               fontWeight: FontWeight.bold),
                         ),
                         Obx(() {
                           List<String> k = Ctl_Khach().to.lstKhach.map((e) => e.MaKhach).toList();
@@ -103,7 +101,7 @@ class V_Xuly extends StatelessWidget {
                         const Text(
                           "Miền: ",
                           style: TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.bold),
+                              fontWeight: FontWeight.bold),
                         ),
                         Obx(() => Wgt_Dropdown(
                             widh: 150,
@@ -159,18 +157,19 @@ class V_Xuly extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: Colors.blueGrey[50],
                   ),
-                  height: 90,
+                  // height: 90,
                   padding: const EdgeInsets.all(10),
                   child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          itemKQ(text: "Xác:", sb: 23, wgt: Obx(() => Text(Ctl_Xuly().to.tienXac,style: const TextStyle(
-                            fontSize: 16
+                          itemKQ(text: "Xác:",scale: scaleText, sb: 23, wgt: Obx(() => Text(Ctl_Xuly().to.tienXac,style:  TextStyle(
+                            fontSize: 16/scaleText
                           ),))),
-                          itemKQ(text: "Vốn:", wgt: Obx(() => Text(Ctl_Xuly().to.tienVon,style: const TextStyle(
-                            fontSize: 16
+                          itemKQ(text: "Vốn:",scale: scaleText, wgt: Obx(() => Text(Ctl_Xuly().to.tienVon,style: TextStyle(
+                            fontSize: 16/scaleText
                           ),))),
                         ],
                       ),
@@ -180,12 +179,12 @@ class V_Xuly extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          itemKQ(text: "Trúng:", wgt:  Obx(() => Text(Ctl_Xuly().to.tienTrung,style: const TextStyle(
-                            fontSize: 16
+                          itemKQ(text: "Trúng:",scale: scaleText, wgt:  Obx(() => Text(Ctl_Xuly().to.tienTrung,style:  TextStyle(
+                            fontSize: 16/scaleText
                           ),))),
-                          itemKQ(text: "Tổng:", wgt: Obx(() => Text(Ctl_Xuly().to.thuBu,style: TextStyle(
+                          itemKQ(text: "Tổng:",scale: scaleText, wgt: Obx(() => Text(Ctl_Xuly().to.thuBu,style: TextStyle(
                             color: Ctl_Xuly().to.thuBu.contains('-')? Colors.red : Colors.blue,
-                            fontSize: 16
+                            fontSize: 16/scaleText
                           ),))),
                         ],
                       ),
@@ -254,29 +253,31 @@ class V_Xuly extends StatelessWidget {
 
     );
   }
+  Row itemKQ(
+      {required String text,
+        double sb = 10,
+        double scale = 0,
+        double widthCt = 100,
+        required Widget wgt}) {
+    return Row(
+      children: [
+        Text(
+          text,
+          style: TextStyle(fontSize: 15/scale),
+        ),
+        SizedBox(
+          width: sb,
+        ),
+        Container(
+          alignment: Alignment.center,
+          width: widthCt,
+          height: 30,
+          color: Colors.white,
+          child: wgt,
+        )
+      ],
+    );
+  }
 }
 
-Row itemKQ(
-    {required String text,
-    double sb = 10,
-    double widthCt = 100,
-    required Widget wgt}) {
-  return Row(
-    children: [
-      Text(
-        text,
-        style: const TextStyle(fontSize: 15),
-      ),
-      SizedBox(
-        width: sb,
-      ),
-      Container(
-        alignment: Alignment.center,
-        width: widthCt,
-        height: 30,
-        color: Colors.white,
-        child: wgt,
-      )
-    ],
-  );
-}
+

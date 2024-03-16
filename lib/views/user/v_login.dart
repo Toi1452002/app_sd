@@ -61,6 +61,7 @@ class V_Login extends StatelessWidget {
                   Wgt_button(
                       height: 40,
                       onPressed: () {
+                        FocusScope.of(context).requestFocus(FocusNode());
                         controller.onLogin();
                       },
                       text: "Đăng nhập"),

@@ -90,9 +90,9 @@ class V_QLTin_CT extends StatelessWidget {
                     ),
                     trailing: PopupMenuButton(
                       itemBuilder: (context) => [
-                        const PopupMenuItem(value: 1, child: Text("Sửa")),
-                        const PopupMenuItem(value: 2, child: Text("Xem chi tiết")),
-                        const PopupMenuItem(value: 3, child: Text("Xóa")),
+                         PopupMenuItem(value: 1, child: Text("Sửa",style: Theme.of(context).textTheme.bodyLarge,)),
+                         PopupMenuItem(value: 2, child: Text("Xem chi tiết",style: Theme.of(context).textTheme.bodyLarge)),
+                         PopupMenuItem(value: 3, child: Text("Xóa",style: Theme.of(context).textTheme.bodyLarge)),
                       ],
                       onSelected: (value) {
                         switch (value) {

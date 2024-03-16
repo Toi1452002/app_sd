@@ -86,6 +86,8 @@ class Ctl_Kqxs extends GetxController {
       ///Cập nhật User
       String makichhoat = await db.dLookup('MaKichHoat', 'T00_User', "MaKH = '${Info_App.MaKH}' Limit 1");
       Map<String, dynamic> user = await dbw.loadRow(tblName: 'KHACH_SD', condition: "MaKH = '${Info_App.MaKH}' AND MaKichHoat = '$makichhoat' AND TrangThai = 1 AND DaXoa = 0");
+      // print("======================================$user");
+
       if(user.isNotEmpty){
         await db.updateCell(tbName: 'T00_User',field: 'NgayHetHan',value: user['NgayHetHan']);
         await dbw.updateData(tbName: 'KHACH_SD', field: 'NgayLamViec',value: DateFormat('yyyy-MM-dd').format(DateTime.now()),condition: "MaKH = '${user['MaKH']}'").whenComplete((){
@@ -104,9 +106,14 @@ class Ctl_Kqxs extends GetxController {
 
 
       }else{
-        // print(user);
+        // print('---------------OkLA');
         EasyLoading.showInfo('Không tìm thấy thiết bị');
-        Future.delayed(const Duration(seconds: 2),()=>Get.offAndToNamed(routerName.v_login));
+
+        Future.delayed(const Duration(seconds: 2),(){
+
+          Get.offAndToNamed(routerName.v_login);
+          // onClose();
+        });
         return;
       }
     }

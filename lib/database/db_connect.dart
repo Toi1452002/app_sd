@@ -187,14 +187,14 @@ class ConnectDB {
     ''';
 
     await cnn!.rawInsert(sql);
-    cnn.close();
+    // cnn.close();
   }
 
   Future<int> insertRow(
       {required Map<String, dynamic> map, required String tbName}) async {
     Database? cnn = await init();
     int ID = await cnn!.insert(tbName, map);
-    cnn.close();
+    // cnn.close();
     return ID;
   }
 
@@ -214,7 +214,7 @@ class ConnectDB {
       {String tbName = '', required Map<String, dynamic> map}) async {
     Database? cnn = await init();
     await cnn!.update(tbName, map, where: 'ID = ?', whereArgs: [map['ID']]);
-    cnn.close();
+    // cnn.close();
   }
 
   dCount(String TableName, {String Condition = ''}) async {
@@ -226,7 +226,7 @@ class ConnectDB {
       x = await cnn!
           .rawQuery("SELECT COUNT(*) FROM $TableName WHERE $Condition");
     }
-    cnn.close();
+    // cnn.close();
     return x[0]['COUNT(*)'];
   }
 
@@ -240,7 +240,7 @@ class ConnectDB {
     ''');
     if (row.isNotEmpty && boquaID == 0) b = true;
     if (row.isNotEmpty && boquaID != 0 && row[0]["ID"] != boquaID) b = true;
-    cnn.close();
+    // cnn.close();
     return b;
   }
 }

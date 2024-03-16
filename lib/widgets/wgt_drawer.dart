@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -22,7 +24,7 @@ class Wgt_Drawer extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           children:  [
              SizedBox(
-              height: 120,
+             height: 120,
               width: Get.width,
               child: DrawerHeader(decoration: const BoxDecoration(
                 color: Sv_Color.main
@@ -38,7 +40,7 @@ class Wgt_Drawer extends StatelessWidget {
                 ],
               ),),
             ),
-            item(icon: const Icon(Icons.perm_contact_cal_rounded), title: "Danh sách khách hàng",onTap: (){
+            item(icon: const Icon(Icons.perm_contact_cal_rounded), title: "Danh sách khách",onTap: (){
               Get.back();
               Get.toNamed(routerName.v_lstKhach);
             }),
@@ -60,7 +62,8 @@ class Wgt_Drawer extends StatelessWidget {
             }),
             Spacer(),
             item(icon: const Icon(Icons.logout,color: Colors.red,), title: "Thoát",colors: Colors.red,onTap: (){
-              SystemNavigator.pop();
+              // SystemNavigator.pop();
+              exit(0);
             }),
           ],
         ),

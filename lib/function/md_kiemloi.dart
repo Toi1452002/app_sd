@@ -353,38 +353,46 @@ md_KiemLoi ({required int MaTin, required String tin, required String ngay, requ
         }//while
       }
       //5. kiem tra số đá
-      if ((x.length>2 && (['dt','da','dx'].contains(x.substring(0,2)) && isNumeric(x[2]))) ||
-          (x.length>1&& x[0]=='x' && isNumeric(x[1]) )){
+
+      if ((x.length>2 && (['dt','da','dx','dv'].contains(x.substring(0,2)) && isNumeric(x[2]))) ||
+          (x.length>1 && x[0]=='x' && isNumeric(x[1]) )){
         // && await dLookup("tkAB","TDM_Khach","ID=$KhachID")!=2
 
         bool bCoSoda = false; bool bXC=false;
         int j=i-1;
-
+        // print(j);
         while (j>=0){//xet cặp đá
-          if (isNumeric(lstTin[j]) && (lstTin[j].length ==4)) bCoSoda=true;
+          if (isNumeric(lstTin[j]) && (lstTin[j].length == 4)) bCoSoda=true;
           if (isNumeric(lstTin[j]) && lstTin[j].length == 3){
 
-            if  (!['da','dt'].contains(x.substring(0,2))) bXC = true;//  # dao xiu chu, bo qua loi
+            if  (!['da','dt','dx','dv'].contains(x.substring(0,2))) bXC = true;//  # dao xiu chu, bo qua loi
             if (x[0] == 'x') break;
           }
-
           //#32.92.da0,5.68.da54,2
           // print(lstTin[j-1]);
-          if (j>0&& lstTin[j].isNumeric && !isNumeric(lstTin[j-1])){
+
+          if (j>0 && lstTin[j].isNumeric && !isNumeric(lstTin[j-1])){
             bCoSoda = false;
             break;
           }
-          if (isNumeric(lstTin[j]) && (lstTin[j].length ==2)){
+          if (isNumeric(lstTin[j]) && (lstTin[j].length == 2)){
             while (j>0){
+
               if (isNumeric(lstTin[j-1])){
                 if (lstTin[j - 1].length == 2) {bCoSoda = true;}
-                else if (lstTin[j - 1].length == 3){
+                else if (lstTin[j - 1].length == 3 ||  lstTin[j - 1].length == 4){
+                  bCoSoda = false;
+                  break;
+                }else{
                   bCoSoda = false;
                   break;
                 }
               }else {break;}
               j-=1;
             }
+          }else if(isNumeric(lstTin[j]) && [3,4].contains(lstTin[j].length)){
+            bCoSoda = false;
+            break;
           }
           if (demPhanTu_list(lstSoHang, lstTin[j])>0) bCoSoda=true;
           int vitri=lstTin[j].indexOf('den');
@@ -395,8 +403,9 @@ md_KiemLoi ({required int MaTin, required String tin, required String ngay, requ
           j-=1;
         }//while
         if (bXC) {i+=1; continue;}
-        if (!bCoSoda){
 
+        if (!bCoSoda){
+          // print('object');
           luu_loi(i, 'không có cặp số đá');
           if (!bLoiTin) bLoiTin = true;
           i+=1;

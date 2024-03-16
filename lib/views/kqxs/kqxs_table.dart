@@ -8,6 +8,7 @@ class KqxsTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double scaleText = MediaQuery.of(context).textScaler.scale(1);
     List<String> MaDai = [];
     listKqxs.forEach((element) {
       MaDai.add(element.MaDai);
@@ -15,18 +16,20 @@ class KqxsTable extends StatelessWidget {
     MaDai = MaDai.toSet().toList();
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Table(
-        columnWidths: const{
-          0: FractionColumnWidth(.1),
-        },
-        border: TableBorder.all(
-            color: Colors.black, style: BorderStyle.solid, width: 1),
-        children: _createRow(MaDai),
+      child: SingleChildScrollView(
+        child: Table(
+          columnWidths: const{
+            0: FractionColumnWidth(.1),
+          },
+          border: TableBorder.all(
+              color: Colors.black, style: BorderStyle.solid, width: 1),
+          children: _createRow(MaDai,scaleText),
+        ),
       ),
     );
   }
 
-  TableRow _createHeader() {
+  TableRow _createHeader(double scaleText) {
     List<Widget> childrenTable = [];
     List<String> MoTa = [];
     for(var item in listKqxs){
@@ -41,8 +44,8 @@ class KqxsTable extends StatelessWidget {
           Text(
             element,
             textAlign: TextAlign.center,
-            style: const TextStyle(
-                fontSize: 18, fontWeight: FontWeight.bold, color: Colors.blue),
+            style: TextStyle(
+                fontSize: 18/scaleText, fontWeight: FontWeight.bold, color: Colors.blue),
           )
         ],
       ));
@@ -51,21 +54,21 @@ class KqxsTable extends StatelessWidget {
     return TableRow(children: childrenTable);
   }
 
-  List<TableRow> _createRow(List<String> MaDai) {
+  List<TableRow> _createRow(List<String> MaDai,double scaleText) {
     List<TableRow> result = [];
-    result.add(_createHeader());
+    result.add(_createHeader(scaleText));
     List<String> giai = [];
     for (var element in listKqxs) {
       giai.add(element.MaGiai);
     }
     giai = giai.toSet().toList();
     for (var _giai in giai) {
-      result.add(TableRow(children: _createCell(_giai, MaDai)));
+      result.add(TableRow(children: _createCell(_giai, MaDai,scaleText)));
     }
     return result;
   }
 
-  List<Column> _createCell(String giai, List<String> maDai) {
+  List<Column> _createCell(String giai, List<String> maDai,double scaleText) {
 
     List<Column> result = [];
     List<KqxsModel> kqSo = <KqxsModel>[];
@@ -86,7 +89,7 @@ class KqxsTable extends StatelessWidget {
         Text(
           maDai[0] == 'mb' ? number.join("\-") : number.join("\n"),
           style: TextStyle(
-              fontSize: giai == "DB" ? 19 : 17,
+              fontSize: giai == "DB" ? 19/scaleText : 17/scaleText,
               fontWeight: giai == "DB" ? FontWeight.bold : FontWeight.normal,
               color: giai == "DB" ? Colors.red : Colors.black),
         )

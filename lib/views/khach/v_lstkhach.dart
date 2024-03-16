@@ -16,7 +16,7 @@ class V_LstKhach extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:  Obx(()=>Text("Danh sách khách (${Ctl_Khach().to.lstKhach.length})")),
+        title:  Obx(()=>Text("Danh sách khách (${Ctl_Khach().to.lstKhach.length})",)),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 10),

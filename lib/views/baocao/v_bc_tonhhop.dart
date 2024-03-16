@@ -17,6 +17,7 @@ class V_BcTongHop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double scaleText = MediaQuery.of(context).textScaler.scale(1);
     return Scaffold(
       backgroundColor: Sv_Color.main[100],
       drawer: const Wgt_Drawer(),
@@ -112,15 +113,15 @@ class V_BcTongHop extends StatelessWidget {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    const Text(
+                    Text(
                       'Tổng tiền',
                       style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                          TextStyle(fontWeight: FontWeight.bold,fontSize: 18/scaleText),
                     ),
                     Obx(() =>  Text(
                       Ctl_BaoCaoTongHop().to.tongTien,
                       style:
-                      TextStyle(fontWeight: FontWeight.bold, fontSize: 18,color:Ctl_BaoCaoTongHop().to.tongTien.contains('-')? Colors.red: Colors.blue ),
+                      TextStyle(fontWeight: FontWeight.bold, fontSize: 25/scaleText,color:Ctl_BaoCaoTongHop().to.tongTien.contains('-')? Colors.red: Colors.blue ),
                     )),
                     Wgt_button(
                       onPressed: () {

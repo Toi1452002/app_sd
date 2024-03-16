@@ -53,7 +53,7 @@ class V_ThemKhach extends StatelessWidget {
           ),
           body:  TabBarView(children: [
             Padding(
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(5),
               child: Column(
                 children: [
                   Wgt_TextField(

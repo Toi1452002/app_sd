@@ -146,7 +146,11 @@ class Ctl_Xuly extends GetxController{
       _mien.value = replaceMien(data[0]['Mien']);
       _maKhach.value = data[0]['MaKhach'];
       _matin.value = data[0]['ID'];
-      _tinController.value.text = GetStorage().read('bDoiDauCach')??false ? data[0]['TinXL'] ?? "" .replaceAll('.', ' ') : data[0]['TinXL'] ??'' ;
+      if(GetStorage().read('bDoiDauCach')??false){
+        _tinController.value.text = data[0]['TinXL'] == null  ? "" : data[0]['TinXL'].replaceAll('.', ' ');
+      }else{
+        _tinController.value.text = data[0]['TinXL'] ?? '';
+      }
       _bDaTinh.value =data[0]['DaTinh'] == null ? false : data[0]['DaTinh'].toString().toBool;
       _enableText.value = true;
 

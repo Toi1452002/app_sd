@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -45,14 +47,25 @@ class V_CaiDat extends StatelessWidget {
                       ),
                       const Divider(),
                       ListTile(
+                        title: const Text("Đối '.' thành ' '"),
+                        subtitle: const Text("Đổi dấu '.' thành dấu ' ' khi xử lý tin"),
+                        trailing: Obx(() => Switch(
+                            value: controller.bDoiDauCach,
+                            onChanged: (value) {
+                              controller.bDoiDauCach = value;
+                            })),
+                      ),
+                      const Divider(),
+                      ListTile(
                         title: const Text("An ủi"),
                         subtitle: const Text(
                             'Vd: Đánh 14, ra 15 hoặc 16 được an ủi'),
                         trailing: SizedBox(
                           width: 50,
                           child: Wgt_TextField(
-                            controller: controller.txt_Anui,
+                            controller: controller.txtAnui,
                             textInputType: TextInputType.number,
+                            fillColor: Colors.white.withOpacity(.8),
                             onChanged: (value) {
                               if(value=='') value= '0';
                               controller.onUpdateTuyChon('au', value );
@@ -113,7 +126,7 @@ class V_CaiDat extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            Wgt_button(
+            Platform.isAndroid ? Wgt_button(
               onPressed: () {
                 controller.onCapNhat();
               },
@@ -122,7 +135,7 @@ class V_CaiDat extends StatelessWidget {
               textColor: Colors.black,
               height: 50,
               icon: Icons.update,
-            ),
+            ) : const SizedBox(),
             const SizedBox(
               height: 10,
             ),
@@ -141,12 +154,14 @@ class V_CaiDat extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                             children: [
                               Wgt_TextField(
+                                fillColor: Colors.white.withOpacity(.8),
                                 controller: controller.taikhoanCTL,
                               ),
                               const SizedBox(
                                 height: 5,
                               ),
                               Wgt_TextField(
+                                fillColor: Colors.white.withOpacity(.8),
                                 labelText: 'Mật khẩu mới',
                                 obscureText: true,
                                 controller: controller.matkhaumoiCTl,
@@ -155,6 +170,7 @@ class V_CaiDat extends StatelessWidget {
                                 height: 5,
                               ),
                               Wgt_TextField(
+                                fillColor: Colors.white.withOpacity(.8),
                                 controller: controller.xn_matkhaumoiCTl,
                                 obscureText: true,
                                 labelText: 'Xác nhận mật khẩu mới',

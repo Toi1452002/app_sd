@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:sd_pmn/config/server.dart';
 import 'package:sd_pmn/controllers/ctl_khach.dart';
@@ -24,7 +25,14 @@ class Ctl_CaiDat extends GetxController {
   bool get kXc => _kXc.value;
 
   set kXc(bool b) => _kXc.value = b;
-  final txt_Anui = TextEditingController();
+  final txtAnui = TextEditingController();
+
+  final RxBool _bdoiDauCach = false.obs;
+  bool get bDoiDauCach => _bdoiDauCach.value;
+  set bDoiDauCach(bool value){
+    _bdoiDauCach.value = value;
+    GetStorage().write('bDoiDauCach', value);
+  }
 
   Ctl_CaiDat get to => Get.find();
 
@@ -40,8 +48,9 @@ class Ctl_CaiDat extends GetxController {
         tbName: 'T00_TuyChon', condition: "Ma in  ('kxc','au')");
     for (var x in data) {
       if (x['Ma'] == 'kxc') _kXc.value = x['GiaTri'].toString().toBool;
-      if (x['Ma'] == 'au') txt_Anui.text = x['GiaTri'].toString();
+      if (x['Ma'] == 'au') txtAnui.text = x['GiaTri'].toString();
     }
+    _bdoiDauCach.value =GetStorage().read('bDoiDauCach') ?? false;
   }
 
   onUpdateTuyChon(String Ma, var value) async {

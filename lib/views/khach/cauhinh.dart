@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sd_pmn/controllers/ctl_khach.dart';
@@ -42,20 +44,6 @@ class CauHinh extends StatelessWidget {
             )),
           ),
         ),
-        // Container(
-        //   decoration: BoxDecoration(
-        //       border: Border(
-        //           bottom: BorderSide(color: Theme.of(context).primaryColor))),
-        //   child: ListTile(
-        //     title: const Text("Đầu trên"),
-        //     trailing: Obx(() => Switch(
-        //           onChanged: (value) {
-        //             GiaKhachController().to.thay_doi_dautren(value);
-        //           },
-        //           value: GiaKhachController().to.b_dautren.value,
-        //         )),
-        //   ),
-        // ),
         const SizedBox(
           height: 10,
         ),
@@ -90,7 +78,7 @@ class CauHinh extends StatelessWidget {
             ],
           ),
         ),
-        Padding(
+        Platform.isAndroid ? Padding(
           padding: const EdgeInsets.all(8.0),
           child: Wgt_TextField(
             fillColor: Colors.white,
@@ -98,7 +86,7 @@ class CauHinh extends StatelessWidget {
             controller: Ctl_Khach().to.sdtCTL,
             textInputType: TextInputType.phone,
           ),
-        ),
+        ) : const SizedBox(),
         Padding(
           padding: const EdgeInsets.only(left: 8,right: 8),
           child: GetBuilder<Ctl_GiaKhach>(builder: (controller) {

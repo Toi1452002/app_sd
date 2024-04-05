@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:sd_pmn/controllers/ctl_user.dart';
@@ -34,6 +35,8 @@ void main() async {
 
   configLoading(); //Cấu hình loading
 
+
+  await GetStorage.init();
 
   runApp(const MyApp());
 }

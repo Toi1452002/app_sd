@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_sms_inbox/flutter_sms_inbox.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 import 'package:sd_pmn/config/server.dart';
 import 'package:sd_pmn/controllers/clt_kqxs.dart';
@@ -85,9 +86,7 @@ class Ctl_Xuly extends GetxController{
   onKiemLoi() async{
     if(_tinController.value.text.isEmpty) { EasyLoading.showInfo("Chưa có tin!"); return; }
     EasyLoading.show(status: 'Đang xử lý',dismissOnTap: false,maskType: EasyLoadingMaskType.black);
-    String tin = _tinController.value.text;
-    tin = await hamXL(tin, _ngaylam.value, _mien.value[0]);
-    tin = await hamXL(tin, _ngaylam.value, _mien.value[0]);
+
     try {
       /** Xử lý tin **/
       String tin = _tinController.value.text;
@@ -121,7 +120,8 @@ class Ctl_Xuly extends GetxController{
       /** Update tinXL **/
       await db.updateCell(tbName: 'TXL_TinNhanCT',field: 'TinXL',condition: "TinNhanID = ${_matin.value}",value: tin);
       EasyLoading.dismiss();
-      _tinController.value.text = tin;
+      print(GetStorage().read('bDoiDauCach'));
+      _tinController.value.text = GetStorage().read('bDoiDauCach')??false ? tin.replaceAll('.', ' ') : tin;
     }catch(e){
       EasyLoading.showInfo(e.toString());
     }
@@ -146,7 +146,7 @@ class Ctl_Xuly extends GetxController{
       _mien.value = replaceMien(data[0]['Mien']);
       _maKhach.value = data[0]['MaKhach'];
       _matin.value = data[0]['ID'];
-      _tinController.value.text = data[0]['TinXL']?? "" ;
+      _tinController.value.text = GetStorage().read('bDoiDauCach')??false ? data[0]['TinXL'] ?? "" .replaceAll('.', ' ') : data[0]['TinXL'] ??'' ;
       _bDaTinh.value =data[0]['DaTinh'] == null ? false : data[0]['DaTinh'].toString().toBool;
       _enableText.value = true;
 
@@ -241,7 +241,7 @@ class Ctl_Xuly extends GetxController{
       _matin.value = ID;
       _mien.value = replaceMien(mien);
       _ngaylam.value = ngay;
-      _tinController.value.text = tin;
+      _tinController.value.text = GetStorage().read('bDoiDauCach')??false ? tin.replaceAll('.', ' ') : tin;
       /** Load tiền phiếu **/
       List<Map<String, dynamic>> tienphieu = await db.loadData(tbName: 'VXL_TongTienPhieu',condition: "ID = ${_matin.value}");
       if(tienphieu.isNotEmpty){
@@ -288,7 +288,8 @@ class Ctl_Xuly extends GetxController{
       tinhtoan.giaKhach = gk.map((e) => GiaKhachModel.fromMap(e)).toList();
       tinhtoan.TinCTID = TinCTID;
       tinhtoan.MaTin = _matin.value;
-      String tinChuyen = await tinhtoan.chuyenTin(_tinController.value.text);
+      String tin = GetStorage().read('bDoiDauCach')??false ? _tinController.value.text.replaceAll(' ', '.') : _tinController.value.text;
+      String tinChuyen = await tinhtoan.chuyenTin(tin);
       // tinhtoan.phantich_ChuoiTin(tinChuyen);
       // List<String> tin = await chuyenTin(_matin.value, _tinController.value.text);
       // print(tinChuyen);

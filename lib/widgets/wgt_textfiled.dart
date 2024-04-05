@@ -23,7 +23,6 @@ class Wgt_TextField extends StatelessWidget {
       this.suffixIcon,
       this.inputFormatters,
       // this.onSubmitted,this.onTapOutside,this.onTap,
-      this.undoController,
       this.autofocus})
       : super(key: key);
   TextEditingController? controller = TextEditingController();
@@ -44,21 +43,12 @@ class Wgt_TextField extends StatelessWidget {
   Color? fillColor;
   Widget? suffixIcon;
   void Function(String)? onChanged;
-  // void Function(String)? onSubmitted;
-  // void Function(PointerDownEvent)? onTapOutside;
-  // void Function()? onTap;
-  UndoHistoryController? undoController;
   @override
   Widget build(BuildContext context) {
     return TextField(
       enabled: enable,
-      // style: style?? TextStyle(fontSize: 11),
-      // onSubmitted: onSubmitted,
-      undoController:undoController ,
       controller: controller,
       keyboardType: textInputType,
-      // onTapOutside: onTapOutside,
-      // onTap: onTap,
       maxLines: maxLines ?? 1,
       maxLength: maxLenght,
       obscureText: obscureText ?? false,
@@ -71,9 +61,6 @@ class Wgt_TextField extends StatelessWidget {
       ],
       decoration: InputDecoration(
           counterText: '',
-          // icon: icon,
-          // hintStyle: TextStyle(fontSize: 11),
-          // labelStyle: TextStyle(fontSize: 11),
           filled: fillColor!=null ? true : false,
           fillColor: fillColor,
           prefixIcon: icon,

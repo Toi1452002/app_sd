@@ -1,4 +1,5 @@
-import 'dart:ffi';
+
+import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -45,7 +46,7 @@ class V_Xuly extends StatelessWidget {
                 },
                 text: DateFormat("dd/MM/yyyy").format(Ctl_Xuly().to.ngaylam),
               )),
-              PopupMenuButton(itemBuilder: (context)=>[
+              Platform.isAndroid ? PopupMenuButton(itemBuilder: (context)=>[
                 PopupMenuItem(child: Text('Tin SMS',style: Theme.of(context).textTheme.bodyLarge,),value: 1,)
               ],
               onSelected: (value){
@@ -55,7 +56,7 @@ class V_Xuly extends StatelessWidget {
                   Get.toNamed(routerName.v_tinsms);
                 }
               },
-              )
+              ) : const SizedBox()
             ],
           ),
           drawer: Ctl_Xuly().to.bUpdate ? null : const Wgt_Drawer(),

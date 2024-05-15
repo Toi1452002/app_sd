@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:sd_pmn/controllers/ctl_thaythetukhoa.dart';
 import 'package:sd_pmn/widgets/wgt_button.dart';
 import 'package:sd_pmn/widgets/wgt_dialog.dart';
-import 'package:sd_pmn/widgets/wgt_textfiled.dart';
+import 'package:sd_pmn/widgets/wgt_textfield.dart';
 
 import '../../config/server.dart';
 
@@ -37,7 +37,7 @@ class V_ThaytheTK extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Expanded(
-                                  child: Obx(()=>Wgt_TextField(
+                                  child: Obx(()=>WgtTextField(
                                     labelText: "Mô tả",
                                     controller: Ctl_ThaytheTK().to.motaController,
                                     errorText:  Ctl_ThaytheTK().to.motaErr=="" ? null : Ctl_ThaytheTK().to.motaErr,
@@ -50,7 +50,7 @@ class V_ThaytheTK extends StatelessWidget {
                                 width: 10,
                               ),
                               Expanded(
-                                  child: Wgt_TextField(
+                                  child: WgtTextField(
                                     labelText: "Từ khóa",
                                     controller: Ctl_ThaytheTK().to.tukhoaController,
                                   )),
@@ -94,7 +94,7 @@ class V_ThaytheTK extends StatelessWidget {
                                     color: Theme.of(context).primaryColor))),
                         child: InkWell(
                           onLongPress: () {
-                            Wgt_Dialog(
+                            WgtDialog(
                                 title: "Thông báo",
                                 text: Sv_String.deleteItem,
                                 onConfirm: () {
@@ -116,7 +116,7 @@ class V_ThaytheTK extends StatelessWidget {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Expanded(
-                                            child: Obx(()=>Wgt_TextField(
+                                            child: Obx(()=>WgtTextField(
                                               labelText: "Mô tả",
                                               controller: Ctl_ThaytheTK().to.motaController,
                                               errorText:  Ctl_ThaytheTK().to.motaErr==""?null: Ctl_ThaytheTK().to.motaErr,
@@ -129,7 +129,7 @@ class V_ThaytheTK extends StatelessWidget {
                                           width: 10,
                                         ),
                                         Expanded(
-                                            child: Wgt_TextField(
+                                            child: WgtTextField(
                                               labelText: "Từ khóa",
                                               controller: Ctl_ThaytheTK().to.tukhoaController,
                                             )),

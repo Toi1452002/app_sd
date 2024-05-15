@@ -1,18 +1,12 @@
-
 import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:sd_pmn/config/router.dart';
 import 'package:sd_pmn/controllers/ctl_khach.dart';
 import 'package:sd_pmn/controllers/ctl_xuly.dart';
-import 'package:sd_pmn/widgets/wgt_button.dart';
-import 'package:sd_pmn/widgets/wgt_drawer.dart';
-import 'package:sd_pmn/widgets/wgt_dropdown.dart';
-import 'package:sd_pmn/widgets/wgt_textfiled.dart';
 import '../../config/server.dart';
+import '../../widgets/widgets.dart';
 
 class V_Xuly extends StatelessWidget {
   V_Xuly({super.key});
@@ -196,7 +190,7 @@ class V_Xuly extends StatelessWidget {
                 /// -----------------------------------------------------------------------------------------*
                 /** TextFied Nhập tin **/
 
-                Obx(() => Wgt_TextField(
+                Obx(() => WgtTextField(
                       fillColor: Colors.white,
                       controller: Ctl_Xuly().to.tinController,
                       enable:  Ctl_Xuly().to.enableText,

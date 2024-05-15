@@ -123,7 +123,7 @@ class MyApp extends StatelessWidget {
 class InitBingding extends Bindings{
   @override
   void dependencies() {
-    Get.put(Ctl_User());
+    Get.put(CtlUser());
     // TODO: implement dependencies
   }
 

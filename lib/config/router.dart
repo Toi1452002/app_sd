@@ -24,7 +24,7 @@ import '../controllers/ctl_quanlytin.dart';
 import '../controllers/ctl_xuly.dart';
 
 
-abstract class routerName{
+class routerName{
   static const String v_init = "/";
   static const String v_xuly = "/v_xuly";
   static const String v_lstKhach = "/v_lstkhach";

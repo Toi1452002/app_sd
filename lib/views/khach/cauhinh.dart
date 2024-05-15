@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sd_pmn/controllers/ctl_khach.dart';
 
-import '../../widgets/wgt_textfiled.dart';
+import '../../widgets/wgt_textfield.dart';
 
 class CauHinh extends StatelessWidget {
   const CauHinh({Key? key}) : super(key: key);
@@ -52,7 +52,7 @@ class CauHinh extends StatelessWidget {
           child: Row(
             children: [
               Expanded(
-                child: Wgt_TextField(
+                child: WgtTextField(
                   labelText: "Hồi tổng",
                   fillColor: Colors.white,
                   textInputType: TextInputType.number,
@@ -60,7 +60,7 @@ class CauHinh extends StatelessWidget {
                 ),
               ),
               Expanded(
-                child: Wgt_TextField(
+                child: WgtTextField(
                   labelText: "Hồi 2s",
                   fillColor: Colors.white,
                   textInputType: TextInputType.number,
@@ -68,7 +68,7 @@ class CauHinh extends StatelessWidget {
                 ),
               ),
               Expanded(
-                child: Wgt_TextField(
+                child: WgtTextField(
                   labelText: "Hồi 3s",
                   fillColor: Colors.white,
                   textInputType: TextInputType.number,
@@ -80,7 +80,7 @@ class CauHinh extends StatelessWidget {
         ),
         Platform.isAndroid ? Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Wgt_TextField(
+          child: WgtTextField(
             fillColor: Colors.white,
             labelText: 'Số điện thoại',
             controller: Ctl_Khach().to.sdtCTL,

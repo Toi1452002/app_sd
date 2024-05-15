@@ -7,11 +7,11 @@ import 'package:sd_pmn/controllers/ctl_user.dart';
 
 import '../../config/server.dart';
 import '../../widgets/wgt_button.dart';
-import '../../widgets/wgt_textfiled.dart';
+import '../../widgets/wgt_textfield.dart';
 
 class V_KichHoat extends StatelessWidget {
   V_KichHoat({super.key});
-  Ctl_User controller = Get.put(Ctl_User());
+  CtlUser controller = Get.put(CtlUser());
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -37,7 +37,7 @@ class V_KichHoat extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   const SizedBox(height: 10,),
-                  Wgt_TextField(
+                  WgtTextField(
                     enable: false,
                     textAlign: TextAlign.center,
                     controller: TextEditingController(text: Info_App.idDevice),
@@ -48,7 +48,7 @@ class V_KichHoat extends StatelessWidget {
                     EasyLoading.showToast('Đã sao chép');
                   }, text: 'Get key',height: 40,),
                   const SizedBox(height: 40,),
-                  Wgt_TextField(
+                  WgtTextField(
                     controller: controller.makichhoatCTL,
                     textAlign: TextAlign.center,
                   ),

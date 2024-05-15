@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:sd_pmn/config/server.dart';
 import 'package:sd_pmn/controllers/ctl_xuly.dart';
-import 'package:sd_pmn/widgets/wgt_button.dart';
-import 'package:sd_pmn/widgets/wgt_dropdown.dart';
+
+import '../../widgets/widgets.dart';
 
 class V_TinSMS extends StatelessWidget {
   const V_TinSMS({super.key});

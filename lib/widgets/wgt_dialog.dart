@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
 
-void Wgt_Dialog(
+void WgtDialog(
     {
       required String title,
       required String text,
@@ -52,3 +52,17 @@ void Wgt_Dialog(
       )
   );
 }
+
+// void WgtDialog({required String title,required String text,required void Function()? onConfirm,}){
+//   Get.dialog(AlertDialog(
+//     contentPadding: const EdgeInsets.only(left: 15,top: 10),
+//     actionsPadding: const EdgeInsets.only(top: 20,right: 5),
+//     titlePadding: const EdgeInsets.only(left: 15,top: 15),
+//     title: Text(title),
+//     content: Text(text),
+//     actions: [
+//       TextButton(onPressed: ()=>Get.back(), child: const Text('Hủy')),
+//       TextButton(onPressed: onConfirm, child: const Text('Chấp nhận')),
+//     ],
+//   ));
+// }

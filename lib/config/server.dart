@@ -2,12 +2,12 @@
 
 import 'package:flutter/material.dart';
 
-abstract class Sv_Color {
+class Sv_Color {
   static const main  = Colors.blueGrey;
   static const main_1  = Colors.teal;
 }
 
-abstract class Info_App{
+class Info_App{
   static String version = "";
   static String idDevice = "";
   static String ngayHetHan = "";
@@ -16,23 +16,23 @@ abstract class Info_App{
   static String MaKH = '';
   static String Username = "";
   static String maSP = "AP-SD";
-  static String pathData = "D:/Flutter/DataSDN_1.db";
+  static String pathData = "D:/data_access/DataSDN_1.db";
   static String nameData = "DataSDN_1.db";
 }
 
-abstract class Sv_String{
+class Sv_String{
   static String noHasNetwork = "Không có Internet";
   static String deleteItem = "Có chắc muốn xóa?";
 }
 
-abstract class API{
+class API{
   static String pathDB = "http://rgb.com.vn/web/php/connectDb.php";
   static String pathJson = "http://rgb.com.vn/web/php/wfile.php";
   // static String pathDB = "http://192.168.1.7:8000/pmn_quanly/connectDb.php";
   // static String pathJson = "http://192.168.1.7:8000/pmn_quanly/wfile.php";
 }
 
-abstract class TypeAPI{
+class TypeAPI{
   static String read = 'read';
   static String insert = 'insert';
   static String delete = 'delete';

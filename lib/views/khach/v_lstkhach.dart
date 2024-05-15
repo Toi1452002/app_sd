@@ -75,7 +75,7 @@ class V_LstKhach extends StatelessWidget {
                         Get.toNamed(routerName.v_themkhach);
                         break;
                       case 3:
-                        Wgt_Dialog(title: "Có chắc muốn xóa?", text: "Toàn bộ dữ liệu của khách này sẽ mất", onConfirm: (){
+                        WgtDialog(title: "Có chắc muốn xóa?", text: "Toàn bộ dữ liệu của khách này sẽ mất", onConfirm: (){
                           Ctl_Khach().to.onDeleteKhach(khach[i].ID!);
                         });
                         break;

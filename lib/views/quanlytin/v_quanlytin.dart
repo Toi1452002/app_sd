@@ -67,7 +67,7 @@ class V_Quanlytin extends StatelessWidget {
                 },
                 leading: const Icon(Icons.mail),
                 trailing: IconButton(onPressed: (){
-                  Wgt_Dialog(title: 'Thông báo', text: 'Toàn bộ tin hiện tại của khách này sẽ bị xóa?', onConfirm: (){
+                  WgtDialog(title: 'Thông báo', text: 'Toàn bộ tin hiện tại của khách này sẽ bị xóa?', onConfirm: (){
                     Ctl_Quanlytin().to.onDeleteKhach(k[i]['ID']);
                   });
                 },icon: Icon(Icons.delete,color: Colors.red,),),

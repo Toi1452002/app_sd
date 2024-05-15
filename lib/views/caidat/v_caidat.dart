@@ -8,7 +8,7 @@ import 'package:sd_pmn/controllers/ctl_caidat.dart';
 import 'package:sd_pmn/controllers/ctl_xuly.dart';
 import 'package:sd_pmn/widgets/wgt_button.dart';
 import 'package:sd_pmn/widgets/wgt_dialog.dart';
-import 'package:sd_pmn/widgets/wgt_textfiled.dart';
+import 'package:sd_pmn/widgets/wgt_textfield.dart';
 
 class V_CaiDat extends StatelessWidget {
   V_CaiDat({super.key});
@@ -62,7 +62,7 @@ class V_CaiDat extends StatelessWidget {
                             'Vd: Đánh 14, ra 15 hoặc 16 được an ủi'),
                         trailing: SizedBox(
                           width: 50,
-                          child: Wgt_TextField(
+                          child: WgtTextField(
                             controller: controller.txtAnui,
                             textInputType: TextInputType.number,
                             fillColor: Colors.white.withOpacity(.8),
@@ -70,7 +70,7 @@ class V_CaiDat extends StatelessWidget {
                               if(value=='') value= '0';
                               controller.onUpdateTuyChon('au', value );
                             },
-                            maxLenght: 2,
+                            maxLength: 2,
                             inputFormatters: [
                               FilteringTextInputFormatter.digitsOnly
                             ],
@@ -93,7 +93,7 @@ class V_CaiDat extends StatelessWidget {
               icon: Icons.cloud_upload,
               onPressed: () {
 
-                Wgt_Dialog(
+                WgtDialog(
                     title: 'Thông báo',
                     text: 'Sao lưu dữ liệu?',
                     onConfirm: () {
@@ -111,7 +111,7 @@ class V_CaiDat extends StatelessWidget {
             Wgt_button(
               icon: Icons.cloud_download,
               onPressed: () {
-                Wgt_Dialog(
+                WgtDialog(
                     title: 'Thông báo',
                     text: 'Khôi phục sẽ làm mất dữ liệu hiện tại!',
                     onConfirm: () {
@@ -153,14 +153,14 @@ class V_CaiDat extends StatelessWidget {
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                             children: [
-                              Wgt_TextField(
+                              WgtTextField(
                                 fillColor: Colors.white.withOpacity(.8),
                                 controller: controller.taikhoanCTL,
                               ),
                               const SizedBox(
                                 height: 5,
                               ),
-                              Wgt_TextField(
+                              WgtTextField(
                                 fillColor: Colors.white.withOpacity(.8),
                                 labelText: 'Mật khẩu mới',
                                 obscureText: true,
@@ -169,7 +169,7 @@ class V_CaiDat extends StatelessWidget {
                               const SizedBox(
                                 height: 5,
                               ),
-                              Wgt_TextField(
+                              WgtTextField(
                                 fillColor: Colors.white.withOpacity(.8),
                                 controller: controller.xn_matkhaumoiCTl,
                                 obscureText: true,
@@ -209,7 +209,7 @@ class V_CaiDat extends StatelessWidget {
             ),
             Wgt_button(
               onPressed: () {
-                Wgt_Dialog(
+                WgtDialog(
                     title: 'Thông báo',
                     text: 'Toàn bộ tin nhắn sẽ bị xóa?',
                     onConfirm: () {

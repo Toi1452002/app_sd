@@ -294,9 +294,6 @@ class Ctl_Xuly extends GetxController{
       tinhtoan.MaTin = _matin.value;
       String tin = GetStorage().read('bDoiDauCach')??false ? _tinController.value.text.replaceAll(' ', '.') : _tinController.value.text;
       String tinChuyen = await tinhtoan.chuyenTin(tin);
-      // tinhtoan.phantich_ChuoiTin(tinChuyen);
-      // List<String> tin = await chuyenTin(_matin.value, _tinController.value.text);
-      // print(tinChuyen);
 
       /** Xóa TinPTCT cũ **/
       await db.deleteData(tbName: 'TXL_TinPhanTichCT', condition: "TinNhanCTID = '$TinCTID'");

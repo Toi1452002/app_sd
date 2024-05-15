@@ -1,5 +1,7 @@
 // ignore_for_file: camel_case_types
 
+import 'dart:developer';
+
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -84,8 +86,7 @@ class Ctl_Kqxs extends GetxController {
       // return;
     }else{
       ///Cập nhật User
-      String makichhoat = await db.dLookup('MaKichHoat', 'T00_User', "MaKH = '${Info_App.MaKH}' Limit 1");
-      Map<String, dynamic> user = await dbw.loadRow(tblName: 'KHACH_SD', condition: "MaKH = '${Info_App.MaKH}' AND MaKichHoat = '$makichhoat' AND TrangThai = 1 AND DaXoa = 0");
+      Map<String, dynamic> user = await dbw.loadRow(tblName: 'KHACH_SD', condition: "MaKH = '${Info_App.MaKH}'  AND TrangThai = 1 AND DaXoa = 0");
       // print("======================================$user");
 
       if(user.isNotEmpty){
@@ -105,15 +106,20 @@ class Ctl_Kqxs extends GetxController {
         });
 
 
-      }else{
-        // print('---------------OkLA');
-        EasyLoading.showInfo('Không tìm thấy thiết bị');
+      }
 
-        Future.delayed(const Duration(seconds: 2),(){
+      else{
+        // EasyLoading.showInfo('Không tìm thấy thiết bị');
+        // Future.delayed(const Duration(seconds: 2),(){
+        //   Get.offAndToNamed(routerName.v_login);
+        // });
 
-          Get.offAndToNamed(routerName.v_login);
-          // onClose();
-        });
+        Map<String,dynamic> user = await db.loadRow(tblName: 'T00_User',Condition: "ID = 2");
+        DateTime ngaylam = DateFormat('yyyy-MM-dd').parse(DateTime.now().toString());
+        DateTime ngayhethan = DateTime.parse(user['NgayHetHan']);
+        if(Info_App.ngayHetHan!='#'){
+          Info_App.soNgayHetHan = ngayhethan.difference(ngaylam).inDays;/// Cập nhật số ngày hết hạn nếu không có mạng
+        }
         return;
       }
     }
@@ -123,7 +129,7 @@ class Ctl_Kqxs extends GetxController {
 
     _thongbao.value = '';
     String strNgay = DateFormat("yyyy-MM-dd").format(_ngaylam.value);
-    int thutrongtuan = _mien.value =="B"?0:DateTime.parse(strNgay).weekday - 1;
+    int thutrongtuan = _mien.value =="B" ? 0 : DateTime.parse(strNgay).weekday - 1;
     String sqlLoadKqxs = '''
       Select kqxs.*,md.MoTa as MoTa ,  substr(md.TT, INSTR(md.Thu,'$thutrongtuan'), 1) as indexTT
           From TXL_KQXS kqxs,T01_MaDai  md
@@ -151,8 +157,6 @@ class Ctl_Kqxs extends GetxController {
           int tt = 0;
           int selectedMaDai = 0;
           List<String> dsDaiHT = await ds_DaiHT(Ngay: strNgay, Mien: mien);
-          // print(dsDaiHT);
-          // print(kqxs["listDai"]);
           if (kqxs["ngay"] == strNgay && dsDaiHT.length == kqxs["listDai"].length && kqxs["kqSo"].length == kqxs["listDai"].length * maSo) {
             /// Có KQXS
             List<String> listMaDai = (kqxs["listDai"]);
@@ -172,7 +176,11 @@ class Ctl_Kqxs extends GetxController {
               }
             }
             List<Map<String, dynamic>> lstInsertJson = lstInsert.map((e) => e.toMap()).toList();
-            await db.insertList(lstData: lstInsertJson, tbName: "TXL_KQXS",fieldToString: 'KQso');
+            if(await db.dCount('TXL_KQXS',Condition: "Ngay = '$strNgay' AND Mien = '${_mien.value}'") == 0 ){
+              log('---Insert KQXS----');
+              await db.insertList(lstData: lstInsertJson, tbName: "TXL_KQXS",fieldToString: 'KQso');
+            }
+
             List<Map<String, dynamic>> loadlai = await db.loadData(sql: sqlLoadKqxs);
             _lstKqxs.value =  loadlai.map((e) => KqxsModel.fromMap(e)).toList();
 
@@ -194,6 +202,7 @@ class Ctl_Kqxs extends GetxController {
     disableBtn.value = false;
     update();
   }
+
   ds_DaiHT({String Mien = 'N',required String Ngay}) async{///Lấy danh sách đài hiện tại
     String sThu=(Thu(Ngay)-1).toString();
     List<String> lstDaiHT = [];
@@ -206,9 +215,6 @@ class Ctl_Kqxs extends GetxController {
         Order By indexTT
     ''');
       lstDaiHT = lstDaiHienTai.map((e) => e['MaDai'].toString()).toList();
-      // if(iSoDai!=0){
-      //   lstDaiHT = lstDaiHienTai.map((e) => e['MaDai'].toString()).toList().sublist(0,iSoDai);
-      // }
     }else{
       lstDaiHT = ['mb'];
     }

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 // ignore: must_be_immutable
-class Wgt_TextField extends StatelessWidget {
-  Wgt_TextField(
+class WgtTextField extends StatelessWidget {
+  WgtTextField(
       {Key? key,
       this.controller,
       this.labelText,
@@ -19,9 +19,9 @@ class Wgt_TextField extends StatelessWidget {
       this.fillColor,
       this.borderRadius,
       this.enable,
-      this.maxLenght,
+      this.maxLength,
       this.suffixIcon,
-      this.inputFormatters,
+      this.inputFormatters,this.hasBoder = true,
       // this.onSubmitted,this.onTapOutside,this.onTap,
       this.autofocus})
       : super(key: key);
@@ -36,13 +36,14 @@ class Wgt_TextField extends StatelessWidget {
   bool? obscureText;
   Icon? icon;
   bool? enable;
-  int? maxLenght;
+  int? maxLength;
   TextStyle? style;
   List<TextInputFormatter>? inputFormatters;
   BorderRadius? borderRadius;
   Color? fillColor;
   Widget? suffixIcon;
   void Function(String)? onChanged;
+  bool hasBoder;
   @override
   Widget build(BuildContext context) {
     return TextField(
@@ -50,7 +51,7 @@ class Wgt_TextField extends StatelessWidget {
       controller: controller,
       keyboardType: textInputType,
       maxLines: maxLines ?? 1,
-      maxLength: maxLenght,
+      maxLength: maxLength,
       obscureText: obscureText ?? false,
       autofocus: autofocus ?? false,
       textAlign: textAlign ?? TextAlign.start,
@@ -66,6 +67,7 @@ class Wgt_TextField extends StatelessWidget {
           prefixIcon: icon,
           suffixIcon: suffixIcon,
           border: OutlineInputBorder(
+            borderSide: hasBoder ? const BorderSide(width: .1) : BorderSide.none,
               borderRadius: borderRadius ?? BorderRadius.zero),
           hintText: hintText,
           errorText: errorText,

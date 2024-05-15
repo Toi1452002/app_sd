@@ -75,7 +75,7 @@ class V_Kqxs extends StatelessWidget {
                       // const Spacer(),
                       TextButton(
                           onPressed: () {
-                            Wgt_Dialog(
+                            WgtDialog(
                                 title: "Thông báo",
                                 text: "Có chắc muốn xóa hết kết quả xổ số?",
                                 onConfirm: () {

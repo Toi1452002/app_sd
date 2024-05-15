@@ -1,22 +1,19 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:sd_pmn/config/router.dart';
-import 'package:sd_pmn/config/server.dart';
 import 'package:sd_pmn/database/connect_dbw.dart';
 import 'package:sd_pmn/widgets/wgt_dialog.dart';
-
+import '../config/config.dart';
 import '../database/db_connect.dart';
 import '../function/extension.dart';
 
-class Ctl_User extends GetxController{
+class CtlUser extends GetxController{
   ///Gọi hàm kết nối database
   ConnectDB db = ConnectDB();
   ConnectDBW dbw = ConnectDBW();
 
-  Ctl_User get to => Get.find();
+  CtlUser get to => Get.find();
 
   final pathCTl = TextEditingController();
 
@@ -24,10 +21,10 @@ class Ctl_User extends GetxController{
   @override
   void onInit() async{
 
-    List<Map> row = await db.loadData(tbName: 'T00_User');
-    if((row.last['MaKichHoat'] == null || row.last['MaKichHoat']=='' )){
-      Get.offAllNamed(routerName.v_kichhoat);
-    }
+    // List<Map> row = await db.loadData(tbName: 'T00_User');
+    // if((row.last['MaKichHoat'] == null || row.last['MaKichHoat']=='' )){
+    //   Get.offAllNamed(routerName.v_kichhoat);
+    // }
     super.onInit();
   }
 
@@ -108,7 +105,7 @@ class Ctl_User extends GetxController{
               }
             }else{//Không tìm thấy tài khoản
               EasyLoading.dismiss();
-              Wgt_Dialog(title: 'Thông báo', text: 'Không tìm thấy thiết bị, vui lòng kích hoạt lại ứng dụng!', onConfirm: () async {
+              WgtDialog(title: 'Thông báo', text: 'Không tìm thấy thiết bị, vui lòng kích hoạt ứng dụng!', onConfirm: () async {
                 await db.updateCell(tbName: 'T00_User',field: 'MaKichHoat',value: '',condition: "ID = 1");
                 await db.updateCell(tbName: 'T00_User',field: 'MaKichHoat',value: '',condition: "ID = 2").whenComplete((){
                   Get.offAndToNamed(routerName.v_kichhoat);
@@ -152,7 +149,7 @@ class Ctl_User extends GetxController{
         }
           else{//Nếu không tìm thấy trên web thì kích hoạt lại
             EasyLoading.dismiss();
-            Wgt_Dialog(title: 'Thông báo', text: 'Không tìm thấy thiết bị, vui lòng kích hoạt lại ứng dụng!', onConfirm: () async {
+            WgtDialog(title: 'Thông báo', text: 'Không tìm thấy thiết bị, vui lòng kích hoạt ứng dụng!', onConfirm: () async {
               await db.updateCell(tbName: 'T00_User',field: 'MaKichHoat',value: '',condition: "ID = 1");
               await db.updateCell(tbName: 'T00_User',field: 'MaKichHoat',value: '',condition: "ID = 2").whenComplete((){
                 Get.offAndToNamed(routerName.v_kichhoat);
@@ -184,7 +181,7 @@ class Ctl_User extends GetxController{
   void onClose() {
     // TODO: implement onClose
     super.onClose();
-    Get.delete<Ctl_User>();
+    Get.delete<CtlUser>();
   }
 
 

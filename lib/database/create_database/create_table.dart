@@ -24,8 +24,7 @@ const String T01_Giai = '''CREATE TABLE T01_Giai (
 
 const String T01_KieuChoi = '''CREATE TABLE T01_KieuChoi (
     ID       INTEGER  PRIMARY KEY AUTOINCREMENT,
-    Kieu     CHAR (3) UNIQUE
-                      NOT NULL,
+    Kieu     CHAR (3) UNIQUE NOT NULL,
     MoTaKieu VARCHAR,
     Nhom     INT,
     TyLe     DOUBLE

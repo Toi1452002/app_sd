@@ -7,7 +7,7 @@ import 'package:sd_pmn/controllers/ctl_khach.dart';
 import 'package:sd_pmn/models/mdl_giakhach.dart';
 import 'package:sd_pmn/views/khach/cauhinh.dart';
 import 'package:sd_pmn/widgets/wgt_groupbtn.dart';
-import 'package:sd_pmn/widgets/wgt_textfiled.dart';
+import 'package:sd_pmn/widgets/wgt_textfield.dart';
 
 import '../../config/server.dart';
 
@@ -56,7 +56,7 @@ class V_ThemKhach extends StatelessWidget {
               padding: const EdgeInsets.all(5),
               child: Column(
                 children: [
-                  Wgt_TextField(
+                  WgtTextField(
                     fillColor: Colors.white,
                     controller: Ctl_Khach().to.makhachController,
                     enable:  Ctl_Khach().to.enableMaKhach,

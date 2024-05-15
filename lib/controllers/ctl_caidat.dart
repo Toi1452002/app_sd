@@ -160,7 +160,7 @@ class Ctl_CaiDat extends GetxController {
     try{
       Map<String, dynamic> data = await dbw.loadRow(tblName: 'PHANMEM', condition: "MaSP = '${Info_App.maSP}'");
       if(data.isNotEmpty &&  data['Version']!=Info_App.version){
-        Wgt_Dialog(title: 'Cập nhật', text: 'Đã có phiên bản ${data['Version']}', onConfirm: (){
+        WgtDialog(title: 'Cập nhật', text: 'Đã có phiên bản ${data['Version']}', onConfirm: (){
           downloadFile("http://rgb.com.vn/flutterApp", data['FileName'], '/storage/emulated/0/Download');
         });
       }else{

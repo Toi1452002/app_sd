@@ -119,7 +119,7 @@ class V_QLTin_CT extends StatelessWidget {
                             // Ctl_Quanlytin().to.xemchitiet(data[i]['ID']);
                             break;
                           case 3:
-                            Wgt_Dialog(
+                            WgtDialog(
                                 title: "Thông báo",
                                 text: Sv_String.deleteItem,
                                 onConfirm: () {

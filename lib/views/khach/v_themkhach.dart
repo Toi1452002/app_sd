@@ -6,14 +6,15 @@ import 'package:get/get.dart';
 import 'package:sd_pmn/controllers/ctl_khach.dart';
 import 'package:sd_pmn/models/mdl_giakhach.dart';
 import 'package:sd_pmn/views/khach/cauhinh.dart';
-import 'package:sd_pmn/widgets/wgt_groupbtn.dart';
-import 'package:sd_pmn/widgets/wgt_textfield.dart';
+import 'package:sd_pmn/views/khach/component/table_gia.dart';
 
 import '../../config/server.dart';
+import '../../widgets/widgets.dart';
 
 class V_ThemKhach extends StatelessWidget {
   V_ThemKhach({super.key});
-  Ctl_GiaKhach controller  = Get.put(Ctl_GiaKhach());
+
+  Ctl_GiaKhach controller = Get.put(Ctl_GiaKhach());
   final RxString _mien = "N".obs;
 
   @override
@@ -51,7 +52,7 @@ class V_ThemKhach extends StatelessWidget {
               ],
             ),
           ),
-          body:  TabBarView(children: [
+          body: TabBarView(children: [
             Padding(
               padding: const EdgeInsets.all(5),
               child: Column(
@@ -59,15 +60,30 @@ class V_ThemKhach extends StatelessWidget {
                   WgtTextField(
                     fillColor: Colors.white,
                     controller: Ctl_Khach().to.makhachController,
-                    enable:  Ctl_Khach().to.enableMaKhach,
+                    enable: Ctl_Khach().to.enableMaKhach,
                     labelText: "Tên khách",
                     // errorText: Ctl_Khach().to.makhachErr!="" ? Ctl_Khach().to.makhachErr : null,
                   ),
                   const SizedBox(
                     height: 10,
                   ),
+                  Obx(()=>Wgt_Dropdown(
+                    items: const ['Kiểu 1-70/100', 'Kiểu 2-12.6/18'],
+                    value: Ctl_Khach().to.kieutyle == 1 ? 'Kiểu 1-70/100' : 'Kiểu 2-12.6/18',
+                    onChange: (value) {
+                      if(value == 'Kiểu 1-70/100'){
+                        Ctl_Khach().to.kieutyle = 1;
+                      }else{
+                        Ctl_Khach().to.kieutyle = 2;
+                      }
+                    },
+                    widh: 300,
+                  )),
+                  const SizedBox(
+                    height: 10,
+                  ),
                   Wgt_GroupButton(
-                    items: ["Nam", "Trung", "Bắc"],
+                    items: const ["Nam", "Trung", "Bắc"],
                     valueSelected: "Nam",
                     colorSelected: Sv_Color.main,
                     colorUnselected: Colors.white,
@@ -80,16 +96,18 @@ class V_ThemKhach extends StatelessWidget {
                     height: 5,
                   ),
                   Expanded(child: Obx(() {
-                    // return ListTile(title: Text(Ctl_GiaKhach().to.lstGiaKhach.first.ChiaMB.toString()),);
-                    return Table(
-                      columnWidths: const {
-                        0: FractionColumnWidth(.25),
-                      },
-                      border: TableBorder.all(
-                          color: Colors.grey, style: BorderStyle.solid, width: 1),
-                      children:
-                      showBangGia(_mien.value, Ctl_GiaKhach().to.lstGiaKhach),
-                    );
+                    return TableGia(mien: _mien.value,gia: controller.lstGiaKhach,);
+                    // return Table(
+                    //   columnWidths: const {
+                    //     0: FractionColumnWidth(.25),
+                    //   },
+                    //   border: TableBorder.all(
+                    //       color: Colors.grey,
+                    //       style: BorderStyle.solid,
+                    //       width: 1),
+                    //   children: showBangGia(
+                    //       _mien.value, controller.lstGiaKhach),
+                    // );
                   }))
                 ],
               ),
@@ -174,7 +192,10 @@ Container cell({required String text, double height = 50, Color? color}) {
   );
 }
 
-TextField textField({required double gia, Function(String)? onChanged,}) {
+TextField textField({
+  required double gia,
+  Function(String)? onChanged,
+}) {
   return TextField(
     textAlign: TextAlign.center,
     controller: TextEditingController(text: gia.toString()),
@@ -184,7 +205,7 @@ TextField textField({required double gia, Function(String)? onChanged,}) {
       border: InputBorder.none,
     ),
     inputFormatters: [
-        FilteringTextInputFormatter.deny(',',replacementString: '.'),
+      FilteringTextInputFormatter.deny(',', replacementString: '.'),
     ],
     keyboardType: TextInputType.number,
     onChanged: onChanged,

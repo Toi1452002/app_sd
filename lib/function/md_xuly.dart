@@ -269,6 +269,8 @@ hamXL(String tin, DateTime ngay,String mien)async {
       }else if(x.length==2 && x[0].isNumeric && x[1]=='n' && k>0 && result[k-1].lastChars(1).isNumeric && (result[k-1].length>1 && !result[k-1].lastChars(2).isNumeric)){
         result[k-1] += ",$x";
         result[k] = "";
+      }else if(x.length>8 && x.substring(0,2) == 'da' && x.substring(2,4).isNumeric){
+         result[k] = "${x.substring(0,4)}.${x.substring(4)}";
       }
       k+=1;
     }

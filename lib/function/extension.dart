@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:sd_pmn/config/server.dart';
 
 extension Bool on String{
-  bool get toBool=> int.parse(this)==0?false:true;
+  bool get toBool=> int.parse(this)==0 ? false : true;
 }
 
 extension Numeric on String {

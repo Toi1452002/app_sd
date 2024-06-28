@@ -1,6 +1,7 @@
 // ignore_for_file: depend_on_referenced_packages
 
 import 'dart:io';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
@@ -48,6 +49,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     double scaleText = MediaQuery.textScalerOf(context).scale(1);
     return  GetMaterialApp(
+      scrollBehavior: MyCustomScrollBehavior(),
       debugShowCheckedModeBanner: false,
       initialBinding: InitBingding(),
       theme: ThemeData(
@@ -148,4 +150,13 @@ void configLoading() {
     ..dismissOnTap = true;
 
   // ..customAnimation = CustomAnimation();
+}
+
+class MyCustomScrollBehavior extends MaterialScrollBehavior {
+  @override
+  Set<PointerDeviceKind> get dragDevices => {
+    PointerDeviceKind.touch,
+    PointerDeviceKind.mouse,
+    // etc.
+  };
 }

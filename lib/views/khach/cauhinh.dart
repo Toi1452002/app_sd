@@ -35,6 +35,20 @@ class CauHinh extends StatelessWidget {
               border: Border(
                   bottom: BorderSide(color: Theme.of(context).primaryColor))),
           child: ListTile(
+            title: const Text("Thay b=đui, lo=bao"),
+            trailing: Obx(() => Switch(
+              onChanged: (value) {
+                Ctl_Khach().to.b_tkAB.value = value;
+              },
+              value: Ctl_Khach().to.b_tkAB.value,
+            )),
+          ),
+        ),
+        Container(
+          decoration: BoxDecoration(
+              border: Border(
+                  bottom: BorderSide(color: Theme.of(context).primaryColor))),
+          child: ListTile(
             title: const Text("Đầu trên"),
             trailing: Obx(() => Switch(
               onChanged: (value) {

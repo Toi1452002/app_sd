@@ -6,11 +6,7 @@ import 'package:sd_pmn/config/server.dart';
 import 'package:sd_pmn/controllers/ctl_baocao.dart';
 import 'package:sd_pmn/views/baocao/wgt_bc_tonghop/table.dart';
 import 'package:sd_pmn/views/baocao/wgt_bc_tonghop/text.dart';
-import 'package:sd_pmn/widgets/wgt_drawer.dart';
-import 'package:sd_pmn/widgets/wgt_dropdown.dart';
-import 'package:sd_pmn/widgets/wgt_table.dart';
-
-import '../../widgets/wgt_button.dart';
+import '../../widgets/widgets.dart';
 
 class V_BcTongHop extends StatelessWidget {
   const V_BcTongHop({super.key});

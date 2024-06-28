@@ -120,7 +120,7 @@ class Ctl_Xuly extends GetxController{
       /** Update tinXL **/
       await db.updateCell(tbName: 'TXL_TinNhanCT',field: 'TinXL',condition: "TinNhanID = ${_matin.value}",value: tin);
       EasyLoading.dismiss();
-      print(GetStorage().read('bDoiDauCach'));
+      // print(GetStorage().read('bDoiDauCach'));
       _tinController.value.text = GetStorage().read('bDoiDauCach')??false ? tin.replaceAll('.', ' ') : tin;
     }catch(e){
       EasyLoading.showInfo(e.toString());
@@ -294,7 +294,6 @@ class Ctl_Xuly extends GetxController{
       tinhtoan.MaTin = _matin.value;
       String tin = GetStorage().read('bDoiDauCach')??false ? _tinController.value.text.replaceAll(' ', '.') : _tinController.value.text;
       String tinChuyen = await tinhtoan.chuyenTin(tin);
-
       /** Xóa TinPTCT cũ **/
       await db.deleteData(tbName: 'TXL_TinPhanTichCT', condition: "TinNhanCTID = '$TinCTID'");
       /// -----------------------------------------------------------------------------------------*
@@ -310,6 +309,7 @@ class Ctl_Xuly extends GetxController{
       });
     }
     catch(e){
+      throw Exception(e);
       EasyLoading.showInfo('Có lỗi khi tính toán');
     }
     if(kqxs.isEmpty)EasyLoading.showToast('Chưa có kết quả xổ số!', toastPosition: EasyLoadingToastPosition.center);

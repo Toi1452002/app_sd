@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sd_pmn/config/server.dart';
+import 'package:sd_pmn/config/config.dart';
 import 'package:sd_pmn/controllers/ctl_user.dart';
 import '../../widgets/widgets.dart';
 
@@ -55,7 +55,12 @@ class V_Login extends StatelessWidget {
                       controller.onLogin();
                     },
                     text: "Đăng nhập"),
-                SizedBox(height: 10,)
+                const SizedBox(height: 20,),
+                TextButton(onPressed: (){
+                  Get.toNamed(routerName.v_kichhoat);
+                }, child: const Text('Kích hoạt ứng dụng',style: TextStyle(
+                  decoration: TextDecoration.underline
+                ),))
               ],
             ),
           ),

@@ -18,12 +18,14 @@ class KhachModel {
   double Hoi3s;
   int KieuTyLe;
   int tkDa;
+  int tkAB;
   String SDT;
   bool copy;
   KhachModel({
     this.ID,
     this.MaKhach = "",
     // this.TheoDoi = true,
+    this.tkAB = 0,
     this.ThuongMN = 0,
     this.ThemChiMN = 0,
     this.ThuongMT = 0,
@@ -43,6 +45,7 @@ class KhachModel {
     return {
       "ID": ID,
       "MaKhach": MaKhach,
+      'tkAB':tkAB,
       // "TheoDoi": TheoDoi,
       "KDauTren": KDauTren,
       "ThuongMN": ThuongMN,
@@ -64,7 +67,8 @@ class KhachModel {
       KhachModel(
           ID: map["ID"],
           MaKhach: map["MaKhach"],
-          tkDa: map["tkDa"],
+          tkDa: map["tkDa"]??0,
+          tkAB: map["tkAB"]??0,
           KieuTyLe: map["KieuTyLe"],
           Hoi2s: map["Hoi2s"],
           Hoi3s: map["Hoi3s"],

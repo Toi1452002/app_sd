@@ -16,6 +16,16 @@ class Ctl_Khach extends GetxController{
 
   RxBool b_2dx = true.obs;    ///  ? 2d-dx : 2d-dt
   RxBool b_dautren = false.obs;
+  RxBool b_tkAB = false.obs;
+
+  final RxInt _kieutyle = 1.obs;
+  int get kieutyle => _kieutyle.value;
+  set kieutyle(int value){
+    _kieutyle.value = value;
+    Ctl_GiaKhach().to.changeKieuGia(value);
+  }
+
+
 
   /// -----------------------------------------------------------------------------------------*
   TextEditingController makhachController = TextEditingController();
@@ -64,6 +74,8 @@ class Ctl_Khach extends GetxController{
         tkDa: b_2dx.value ? 1 : 0,
         KDauTren: b_dautren.value ? 1 : 0,
         MaKhach: makhachController.text.trim(),
+        KieuTyLe: _kieutyle.value,
+        tkAB: b_tkAB.value ? 1 : 0,
         ThuongMN: Ctl_GiaKhach().to.ck_thuongMN.value ? 1 : 0,
         ThemChiMN: Ctl_GiaKhach().to.ck_themchiMN.value ? 1 : 0,
         ThuongMT: Ctl_GiaKhach().to.ck_thuongMT.value ? 1 : 0,
@@ -88,8 +100,10 @@ class Ctl_Khach extends GetxController{
       KhachModel data = KhachModel(
         ID: khachUpdate.ID,
         tkDa: b_2dx.value ? 1 : 0,
+        tkAB: b_tkAB.value ? 1 : 0,
         KDauTren: b_dautren.value ? 1 : 0,
         MaKhach: makhachController.text.trim(),
+        KieuTyLe: _kieutyle.value,
         ThuongMN: Ctl_GiaKhach().to.ck_thuongMN.value ? 1 : 0,
         ThemChiMN: Ctl_GiaKhach().to.ck_themchiMN.value ? 1 : 0,
         ThuongMT: Ctl_GiaKhach().to.ck_thuongMT.value ? 1 : 0,
@@ -158,16 +172,20 @@ class Ctl_Khach extends GetxController{
     hoi3SoController.text = k.Hoi3s.toStringAsFixed(0);
     b_2dx.value = k.tkDa.toString().toBool;
     b_dautren.value = k.KDauTren.toString().toBool;
+    b_tkAB.value = k.tkAB.toString().toBool;
+    _kieutyle.value = k.KieuTyLe;
     sdtCTL.text = k.SDT;
     update();
   }
   ResetText(){
     khachUpdate = KhachModel();
+    _kieutyle.value = 1;
     makhachController.clear();
     hoi3SoController.clear();
     hoi2SoController.clear();
     hoiTongController.clear();
     sdtCTL.clear();
+    b_tkAB.value = false;
     _enableMaKhach.value = true;
     update();
   }
@@ -188,6 +206,17 @@ class Ctl_GiaKhach extends GetxController{
     GiaKhachModel(MaKieu: "dt", CoMN: 70, TrungMN: 500, CoMT: 70, TrungMT: 500, CoMB: 70, TrungMB: 500),
     GiaKhachModel(MaKieu: "dx", CoMN: 70, TrungMN: 500, CoMT: 70, TrungMT: 500, CoMB: 0, TrungMB: 0),
   ];
+
+  List<GiaKhachModel> gia_ban_dau_k2 = [
+    GiaKhachModel(MaKieu: "ab", CoMN: 70, TrungMN: 70, CoMT: 70, TrungMT: 70, CoMB: 70, TrungMB: 70),
+    GiaKhachModel(MaKieu: "xc", CoMN: 70, TrungMN: 600, CoMT: 70, TrungMT: 600, CoMB: 70, TrungMB: 600),
+    GiaKhachModel(MaKieu: "b2", CoMN: 70, TrungMN: 70, CoMT: 70, TrungMT: 70, CoMB: 70, TrungMB: 70),
+    GiaKhachModel(MaKieu: "b3", CoMN: 60, TrungMN: 600, CoMT: 60, TrungMT: 600, CoMB: 60, TrungMB: 600),
+    GiaKhachModel(MaKieu: "b4", CoMN: 60, TrungMN: 5000, CoMT: 60, TrungMT: 5000, CoMB: 60, TrungMB: 5000),
+    GiaKhachModel(MaKieu: "dt", CoMN: 70, TrungMN: 500, CoMT: 70, TrungMT: 500, CoMB: 70, TrungMB: 500),
+    GiaKhachModel(MaKieu: "dx", CoMN: 70, TrungMN: 500, CoMT: 70, TrungMT: 500, CoMB: 70, TrungMB: 500),
+    GiaKhachModel(MaKieu: "d4", CoMN: 70, TrungMN: 5000, CoMT: 70, TrungMT: 5000, CoMB: 70, TrungMB: 5000),
+  ];
   ///
   ///-------------------------------------------
   RxBool ck_thuongMN = false.obs;
@@ -202,6 +231,14 @@ class Ctl_GiaKhach extends GetxController{
   final RxList<GiaKhachModel> _lstGiaKhach = <GiaKhachModel>[].obs;
   Ctl_GiaKhach get to => Get.find();
   List<GiaKhachModel> get lstGiaKhach =>  _lstGiaKhach.value;
+
+  void changeKieuGia(int kieutyle){
+    if(kieutyle==1){
+      _lstGiaKhach.value = gia_ban_dau_k1;
+    }else{
+      _lstGiaKhach.value = gia_ban_dau_k2;
+    }
+  }
 
   @override
   void onInit() {

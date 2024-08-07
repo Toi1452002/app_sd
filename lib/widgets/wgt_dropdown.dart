@@ -34,7 +34,7 @@ class Wgt_Dropdown extends StatelessWidget {
 
           alignedDropdown: true,
           child: DropdownButton(
-            isExpanded: true,
+            // isExpanded: true,
             dropdownColor: Colors.white,
             style: const TextStyle(
               overflow: TextOverflow.ellipsis,

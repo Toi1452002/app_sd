@@ -48,7 +48,7 @@ class VBC_ChiTiet extends StatelessWidget {
                       height: 150,
                       color: Colors.white,
                       child: SingleChildScrollView(
-                          child: Text(data[i]['TinXL'],
+                          child: Text(data[i]['TinXL']??'',
                               overflow: TextOverflow.fade)),
                     ),
 

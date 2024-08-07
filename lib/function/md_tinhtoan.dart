@@ -482,7 +482,7 @@ class MD_TinhToan{
           i+=1;
         }//for
         if (await db.dLookup("GiaTri", "T00_TuyChon", "Ma='kxc'") == 1){
-          lstTin = chen_XC(lstTin, tkAB!);
+          lstTin = chen_XC(lstTin, tkAB??0);
         }
       }
       /// -----------------------------------------------------------------------------------------*

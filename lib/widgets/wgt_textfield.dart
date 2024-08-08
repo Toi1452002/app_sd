@@ -66,9 +66,21 @@ class WgtTextField extends StatelessWidget {
           fillColor: fillColor,
           prefixIcon: icon,
           suffixIcon: suffixIcon,
-          border: OutlineInputBorder(
-            borderSide: hasBoder ? const BorderSide(width: .1) : BorderSide.none,
-              borderRadius: borderRadius ?? BorderRadius.zero),
+          // border: OutlineInputBorder(
+          //   borderSide: hasBoder ? const BorderSide(width: .1) : BorderSide.none,
+          //     borderRadius: borderRadius ?? BorderRadius.zero),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(3),
+            borderSide: BorderSide(width: .3,color: Colors.black)
+          ),
+          disabledBorder:  OutlineInputBorder(
+              borderRadius: BorderRadius.circular(3),
+              borderSide: BorderSide(width: .3,color: Colors.black)
+          ),
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(3),
+            borderSide: BorderSide(width: .5,color: Colors.blueAccent.shade700)
+          ),
           hintText: hintText,
           errorText: errorText,
           labelText: labelText),

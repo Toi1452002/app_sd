@@ -21,7 +21,7 @@ class V_Login extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Đăng nhập vào ứng dụng',style: context.textTheme.headlineSmall?.copyWith(
+                Text('Đăng nhập vào ứng dụng',style: context.textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.bold,
                   color: Colors.blueGrey
                 ),),

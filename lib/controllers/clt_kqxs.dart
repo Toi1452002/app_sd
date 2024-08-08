@@ -77,7 +77,7 @@ class Ctl_Kqxs extends GetxController {
     disableBtn.value = true;
     if(!await hasNetwork()) { /// Nếu không có mạng
       Map<String,dynamic> user = await db.loadRow(tblName: 'T00_User',Condition: "ID = 2");
-      DateTime ngaylam = DateFormat('yyyy-MM-dd').parse(DateTime.now().toString());
+      DateTime ngaylam = DateTime.now();
       DateTime ngayhethan = DateTime.parse(user['NgayHetHan']);
       if(Info_App.ngayHetHan!='#'){
         Info_App.soNgayHetHan = ngayhethan.difference(ngaylam).inDays;/// Cập nhật số ngày hết hạn nếu không có mạng
@@ -113,14 +113,17 @@ class Ctl_Kqxs extends GetxController {
         // Future.delayed(const Duration(seconds: 2),(){
         //   Get.offAndToNamed(routerName.v_login);
         // });
+        // Map<String,dynamic> user = await db.loadRow(tblName: 'T00_User',Condition: "ID = 2");
+        DateTime ngaylam = DateTime.now();
+        DateTime ngayhethan = DateTime.now();
+        if(Info_App.ngayHetHan=='null'){
+          Info_App.soNgayHetHan = 1;/// Cập nhật số ngày hết hạn nếu không có mạng
 
-        Map<String,dynamic> user = await db.loadRow(tblName: 'T00_User',Condition: "ID = 2");
-        DateTime ngaylam = DateFormat('yyyy-MM-dd').parse(DateTime.now().toString());
-        DateTime ngayhethan = DateTime.parse(user['NgayHetHan']);
-        if(Info_App.ngayHetHan!='#'){
+        }
+        else if(Info_App.ngayHetHan!='#'){
           Info_App.soNgayHetHan = ngayhethan.difference(ngaylam).inDays;/// Cập nhật số ngày hết hạn nếu không có mạng
         }
-        return;
+        // return;
       }
     }
 

@@ -28,11 +28,11 @@ class Wgt_button extends StatelessWidget {
     return SizedBox(
         width: width,
         height: height,
-        child: ElevatedButton(
+        child: FilledButton(
             style: ElevatedButton.styleFrom(
                 backgroundColor: color,
-                shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.zero)),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(3))),
             onPressed: disable ?? false ? null : onPressed,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -40,7 +40,7 @@ class Wgt_button extends StatelessWidget {
                 icon == null ? const SizedBox() : SizedBox(width: 25,child: Icon(icon,size: 20,color: textColor,),),
                 Text(
                   text.toString(),
-                  style: TextStyle(color: textColor ?? Colors.black),
+                  style: TextStyle(color: textColor ?? Colors.white),
                 )
               ],
             )));

@@ -46,7 +46,7 @@ class V_KichHoat extends StatelessWidget {
                   Wgt_button(onPressed: (){
                     Clipboard.setData(ClipboardData(text: Info_App.idDevice));
                     EasyLoading.showToast('Đã sao chép');
-                  }, text: 'Get key',height: 40,),
+                  }, text: 'Copy',height: 40,),
                   const SizedBox(height: 40,),
                   WgtTextField(
                     controller: controller.makichhoatCTL,

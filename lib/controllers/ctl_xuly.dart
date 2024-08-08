@@ -276,7 +276,7 @@ class Ctl_Xuly extends GetxController{
       Ctl_Kqxs().onClose();
     }
 
-    if(Info_App.soNgayHetHan<0) {EasyLoading.showInfo('App đã hết hạn');return;}
+    if(Info_App.soNgayHetHan<1) {EasyLoading.showInfo('App đã hết hạn');return;}
 
     EasyLoading.show(status: "Đang tính toán...",dismissOnTap: false,maskType: EasyLoadingMaskType.black);
     MD_TinhToan tinhtoan = MD_TinhToan();

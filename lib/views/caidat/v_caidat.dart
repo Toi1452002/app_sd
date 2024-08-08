@@ -6,9 +6,8 @@ import 'package:get/get.dart';
 import 'package:sd_pmn/config/server.dart';
 import 'package:sd_pmn/controllers/ctl_caidat.dart';
 import 'package:sd_pmn/controllers/ctl_xuly.dart';
-import 'package:sd_pmn/widgets/wgt_button.dart';
-import 'package:sd_pmn/widgets/wgt_dialog.dart';
-import 'package:sd_pmn/widgets/wgt_textfield.dart';
+
+import '../../widgets/widgets.dart';
 
 class V_CaiDat extends StatelessWidget {
   V_CaiDat({super.key});
@@ -22,125 +21,96 @@ class V_CaiDat extends StatelessWidget {
         title: const Text("Cài đặt"),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(5.0),
         child: Column(
           children: [
-            Wgt_button(
-              onPressed: () {
-                Ctl_CaiDat().to.onLoadTuyChon();
-                Get.dialog(Dialog(
-                  insetPadding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      ListTile(
-                        title: const Text("Lấy 3 con"),
-                        subtitle: const Text(
-                            '1234b1.b1.xc1.dd1=1234b1.234b1.234.xc1.34dd1'),
-                        trailing: Obx(() => Switch(
-                            value: controller.kXc,
-                            onChanged: (value) {
-                              controller.kXc = value;
-                              controller.onUpdateTuyChon(
-                                  'kxc', value ? 1 : 0);
-                            })),
-                      ),
-                      const Divider(),
-                      ListTile(
-                        title: const Text("Đối '.' thành ' '"),
-                        subtitle: const Text("Đổi dấu '.' thành dấu ' ' khi xử lý tin"),
-                        trailing: Obx(() => Switch(
-                            value: controller.bDoiDauCach,
-                            onChanged: (value) {
-                              controller.bDoiDauCach = value;
-                            })),
-                      ),
-                      const Divider(),
-                      ListTile(
-                        title: const Text("An ủi"),
-                        subtitle: const Text(
-                            'Vd: Đánh 14, ra 15 hoặc 16 được an ủi'),
-                        trailing: SizedBox(
-                          width: 50,
-                          child: WgtTextField(
-                            controller: controller.txtAnui,
-                            textInputType: TextInputType.number,
-                            fillColor: Colors.white.withOpacity(.8),
-                            onChanged: (value) {
-                              if(value=='') value= '0';
-                              controller.onUpdateTuyChon('au', value );
-                            },
-                            maxLength: 2,
-                            inputFormatters: [
-                              FilteringTextInputFormatter.digitsOnly
-                            ],
-                          ),
+            item('Tùy chọn',onTap: (){
+              Ctl_CaiDat().to.onLoadTuyChon();
+              Get.dialog(Dialog(
+                insetPadding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    ListTile(
+                      title: const Text("Lấy 3 con"),
+                      subtitle: const Text(
+                          '1234b1.b1.xc1.dd1=1234b1.234b1.234.xc1.34dd1'),
+                      trailing: Obx(() => Switch(
+                          value: controller.kXc,
+                          onChanged: (value) {
+                            controller.kXc = value;
+                            controller.onUpdateTuyChon(
+                                'kxc', value ? 1 : 0);
+                          })),
+                    ),
+                    const Divider(),
+                    ListTile(
+                      title: const Text("Đối '.' thành ' '"),
+                      subtitle: const Text("Đổi dấu '.' thành dấu ' ' khi xử lý tin"),
+                      trailing: Obx(() => Switch(
+                          value: controller.bDoiDauCach,
+                          onChanged: (value) {
+                            controller.bDoiDauCach = value;
+                          })),
+                    ),
+                    const Divider(),
+                    ListTile(
+                      title: const Text("An ủi"),
+                      subtitle: const Text(
+                          'Vd: Đánh 14, ra 15 hoặc 16 được an ủi'),
+                      trailing: SizedBox(
+                        width: 50,
+                        child: WgtTextField(
+                          controller: controller.txtAnui,
+                          textInputType: TextInputType.number,
+                          fillColor: Colors.white.withOpacity(.8),
+                          onChanged: (value) {
+                            if(value=='') value= '0';
+                            controller.onUpdateTuyChon('au', value );
+                          },
+                          maxLength: 2,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
                         ),
                       ),
-                    ],
-                  ),
-                ));
-              },
-              text: 'Tùy chọn',
-              color: Colors.white,
-              textColor: Colors.black,
-              height: 50,
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Wgt_button(
-              icon: Icons.cloud_upload,
-              onPressed: () {
-
-                WgtDialog(
-                    title: 'Thông báo',
-                    text: 'Sao lưu dữ liệu?',
-                    onConfirm: () {
-                      controller.onSaoLuu();
-                    });
-              },
-              text: 'Sao lưu dữ liệu',
-              color: Colors.white,
-              textColor: Colors.black,
-              height: 50,
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Wgt_button(
-              icon: Icons.cloud_download,
-              onPressed: () {
-                WgtDialog(
-                    title: 'Thông báo',
-                    text: 'Khôi phục sẽ làm mất dữ liệu hiện tại!',
-                    onConfirm: () {
-                      controller.onKhoiPhuc();
-                    });
-              },
-              text: 'Khôi phục dữ liệu',
-              color: Colors.white,
-              textColor: Colors.black,
-              height: 50,
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Platform.isAndroid ? Wgt_button(
-              onPressed: () {
+                    ),
+                  ],
+                ),
+              ));
+            }),
+            item('Sao lưu dữ liệu',onTap: (){
+              WgtDialog(
+                  title: 'Thông báo',
+                  text: 'Sao lưu dữ liệu?',
+                  onConfirm: () {
+                    controller.onSaoLuu();
+                  });
+            }),
+            item('Khôi phục dữ liệu',onTap: (){
+              WgtDialog(
+                  title: 'Thông báo',
+                  text: 'Khôi phục sẽ làm mất dữ liệu hiện tại!',
+                  onConfirm: () {
+                    controller.onKhoiPhuc();
+                  });
+            }),
+            // const SizedBox(
+            //   height: 10,
+            // ),
+            Visibility(visible: Platform.isAndroid ,child:item(
+              "Cập nhật ứng dụng",
+              onTap: () {
                 controller.onCapNhat();
               },
-              text: "Cập nhật ứng dụng",
-              color: Colors.white,
-              textColor: Colors.black,
-              height: 50,
-              icon: Icons.update,
-            ) : const SizedBox(),
-            const SizedBox(
-              height: 10,
-            ),
-            Wgt_button(
-              onPressed: () {
+
+            ),),
+            // const SizedBox(
+            //   height: 10,
+            // ),
+            item(
+              "Tài khoản",
+              onTap: () {
                 controller.clearTextChangePassword();
                 controller.taikhoanCTL.text = Info_App.Username;
                 if (Info_App.Username == 'pmn') {
@@ -187,28 +157,25 @@ class V_CaiDat extends StatelessWidget {
                             ],
                           ),
                       )
-                      : Obx(() => Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text('Username: ${controller.username}'),
-                              Text('Password: ${controller.password}'),
-                            ],
-                          )),
+                      : Obx(() => Padding(
+                        padding: EdgeInsets.all(5),
+                        child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text('Username: ${controller.username}'),
+                                Text('Password: ${controller.password}'),
+                              ],
+                            ),
+                      )),
                 ));
               },
-              text: "Tài khoản",
-              color: Colors.white,
-              textColor: Colors.black,
-              height: 50,
-              icon: Icons.person,
             ),
-            const SizedBox(
-              height: 10,
-            ),
-            Wgt_button(
-              onPressed: () {
+            item(
+                "Xóa tất cả tin nhắn",
+              textColor: Colors.red,
+              onTap: () {
                 WgtDialog(
                     title: 'Thông báo',
                     text: 'Toàn bộ tin nhắn sẽ bị xóa?',
@@ -217,14 +184,28 @@ class V_CaiDat extends StatelessWidget {
                       Get.back();
                     });
               },
-              text: "Xóa tất cả tin nhắn",
-              color: Colors.white,
-              textColor: Colors.red,
-              height: 50,
-              icon: Icons.delete,
             ),
           ],
         ),
+      ),
+    );
+  }
+
+
+  Widget item(String title, {void Function()? onTap, Color? textColor}){
+    return Card(
+      color: Colors.white,
+      elevation: 5,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(3)
+      ),
+      child: ListTile(
+        onTap: onTap,
+        title: Text(title,style: TextStyle(
+          color: textColor ,
+          fontWeight: FontWeight.bold,
+          fontSize: 14
+        ),),
       ),
     );
   }

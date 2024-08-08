@@ -26,7 +26,7 @@ class ConnectDBW{
         List<dynamic> row = jsonDecode(response.body);
         if(row[0]!=false) data = row.map((e) => e as Map<String, dynamic>).toList();
       }else{
-        EasyLoading.showError("Đường truyền lỗi 1!");
+        EasyLoading.showError("Đường truyền lỗi!");
       }
     }catch(e){
       print(e);
@@ -48,7 +48,8 @@ class ConnectDBW{
         if(row.isNotEmpty &&  row[0]!=false) data = row.map((e) => e as Map<String, dynamic>).toList().first;
 
       }else{
-        EasyLoading.showError("Đường truyền lỗi 1!");
+        data = {'err':'Mạng không ổn định'};
+        EasyLoading.showError("Đường truyền lỗi!");
       }
     }catch(e){
       print(e);
@@ -70,7 +71,7 @@ class ConnectDBW{
         if(row.isNotEmpty && row[0]!=false) result = row.map((e) => e as Map<String, dynamic>).toList().first[fieldName];
 
       }else{
-        EasyLoading.showError("Đường truyền lỗi 1!");
+        EasyLoading.showError("Đường truyền lỗi!");
       }
     }catch(e){
       print(e);
@@ -103,7 +104,7 @@ class ConnectDBW{
       if(response.statusCode==200){
         ID = jsonDecode(response.body);
       }else{
-        EasyLoading.showError("Đường truyền lỗi 1!");
+        EasyLoading.showError("Đường truyền lỗi!");
       }
     }catch(e){
       print(e);
@@ -131,7 +132,7 @@ class ConnectDBW{
       if(response.statusCode==200){
         EasyLoading.showToast('Xóa thành công');
       }else{
-        EasyLoading.showError("Đường truyền lỗi 1!");
+        EasyLoading.showError("Đường truyền lỗi!");
       }
     }catch(e){
       print(e);
@@ -150,7 +151,7 @@ class ConnectDBW{
         // print('Updated');
         // EasyLoading.showToast('Xóa thành công');
       }else{
-        EasyLoading.showError("Đường truyền lỗi 1!");
+        EasyLoading.showError("Đường truyền lỗi!");
       }
     }catch(e){
       print(e);
@@ -212,7 +213,7 @@ class ConnectDBW{
       if(response.statusCode==200){
         print('Insert success');
       }else{
-        EasyLoading.showError("Đường truyền lỗi 1!");
+        EasyLoading.showError("Đường truyền lỗi!");
       }
     }catch(e){
       print(e);

@@ -94,13 +94,14 @@ class MyApp extends StatelessWidget {
           )
         ),
 
-        colorSchemeSeed: Colors.blue,
+        colorSchemeSeed: Colors.blueGrey,
         dialogTheme: DialogTheme(
+          backgroundColor: Colors.white,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5)
+            borderRadius: BorderRadius.circular(3)
           )
         ),
-        appBarTheme: AppBarTheme(color: Sv_Color.main,titleTextStyle: TextStyle(
+        appBarTheme: AppBarTheme(color: Sv_Color.main,titleSpacing: 0,titleTextStyle: TextStyle(
           fontSize: 20/scaleText,
           color: Colors.black
         ))

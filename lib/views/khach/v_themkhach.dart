@@ -71,11 +71,16 @@ class V_ThemKhach extends StatelessWidget {
                     items: const ['Kiểu 1-70/100', 'Kiểu 2-12.6/18'],
                     value: Ctl_Khach().to.kieutyle == 1 ? 'Kiểu 1-70/100' : 'Kiểu 2-12.6/18',
                     onChange: (value) {
-                      if(value == 'Kiểu 1-70/100'){
-                        Ctl_Khach().to.kieutyle = 1;
-                      }else{
-                        Ctl_Khach().to.kieutyle = 2;
-                      }
+                      WgtDialog(title: 'Thông báo', text: 'Có muốn thay đổi kiểu tỷ lệ', onConfirm: (){
+                        if(value == 'Kiểu 1-70/100'){
+                          Ctl_Khach().to.kieutyle = 1;
+                        }else{
+                          Ctl_Khach().to.kieutyle = 2;
+                        }
+
+                        Get.back();
+                      });
+
                     },
                     widh: 300,
                   )),

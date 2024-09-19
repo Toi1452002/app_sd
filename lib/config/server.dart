@@ -26,7 +26,7 @@ class InfoApp{
 
 
   static String fileName(String verSion){
-    return 'sd_fan_$verSion.apk';
+    return 'appSD_$verSion.apk';
   }
 }
 

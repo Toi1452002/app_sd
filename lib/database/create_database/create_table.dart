@@ -7,13 +7,13 @@ const String T00_TuyChon = '''CREATE TABLE T00_TuyChon (
       MoTa VARCHAR)''';
 
 const String T00_User = '''CREATE TABLE T00_User (
-    ID INTEGER PRIMARY KEY ASC AUTOINCREMENT,
+    ID INTEGER PRIMARY KEY AUTOINCREMENT,
     MaKH,
     UserName VARCHAR UNIQUE NOT NULL,
     PassWord VARCHAR NOT NULL,
     MaKichHoat VARCHAR,
-    NgayHetHan DATE    DEFAULT (datetime('now') ),
-    VinhVien   BOOLEAN DEFAULT (0))''';
+    NgayHetHan DATE DEFAULT (datetime('now'))
+    )''';
 
 const String T01_Giai = '''CREATE TABLE T01_Giai (
     ID INTEGER PRIMARY KEY AUTOINCREMENT,

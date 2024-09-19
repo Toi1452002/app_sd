@@ -22,8 +22,8 @@ class ConnectDB {
   Future<Database?> init() async {
     if (Platform.isWindows) {
       try {
-        if (await File(Info_App.pathData).exists()) {
-          Database? db = await databaseFactory.openDatabase(Info_App.pathData);
+        if (await File(InfoApp.pathData).exists()) {
+          Database? db = await databaseFactory.openDatabase(InfoApp.pathData);
           return db;
         } else {
           print("Database không tồn tại");
@@ -34,20 +34,20 @@ class ConnectDB {
     } else {
       // Android
       var dbPath = await getDatabasesPath();
-      var path = join(dbPath, Info_App.nameData);
+      var path = join(dbPath, InfoApp.nameData);
       var exist = await databaseExists(path);
       if (exist) {
         // print('Đã có data');
         return await openDatabase(path);
       } else {
         print('Chưa có data');
-        if (Info_App.API_DEVICE >= 30) {
+        if (InfoApp.API_DEVICE >= 30) {
           print("Creating new copy from asset API >= 30");
           try {
             await Directory(dirname(path)).create(recursive: true);
           } catch (_) {}
           ByteData data =
-              await rootBundle.load(join("assets", Info_App.nameData));
+              await rootBundle.load(join("assets", InfoApp.nameData));
           List<int> bytes =
               data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
           await File(path).writeAsBytes(bytes, flush: true);
@@ -56,7 +56,8 @@ class ConnectDB {
           print('API < 30');
           return await openDatabase(path, version: 2, onCreate: (db, vs) async {
             await db.execute(T00_TuyChon); await db.rawInsert(INSERT_T00_TuyChon);
-            await db.execute(T00_User);await db.rawInsert(INSERT_T00_User);
+            await db.execute(T00_User);
+            await db.rawInsert(INSERT_T00_User);
             await db.execute(T01_Giai);await db.rawInsert(INSERT_T01_Giai);
             await db.execute(T01_KieuChoi);await db.rawInsert(INSERT_T01_KieuChoi);
             await db.execute(T01_MaDai);await db.rawInsert(INSERT_T01_MaDai);
@@ -155,7 +156,10 @@ class ConnectDB {
     List<Map<String, dynamic>> x = [];
 
     if (sql == '') {
-      x = await cnn!.rawQuery("SELECT * FROM $tblName WHERE $Condition");
+      x = await cnn!.rawQuery("SELECT * FROM $tblName WHERE $Condition").timeout(Duration(seconds: 5),onTimeout: (){
+
+        return [];
+      });
     } else {
       x = await cnn!.rawQuery(sql);
     }

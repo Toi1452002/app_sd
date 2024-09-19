@@ -84,6 +84,9 @@ class Ctl_Xuly extends GetxController{
   }
 
   onKiemLoi() async{
+    if(infoUser.value.soNgayCon<1) {EasyLoading.showInfo('App đã hết hạn');return;}
+
+
     if(_tinController.value.text.isEmpty) { EasyLoading.showInfo("Chưa có tin!"); return; }
     EasyLoading.show(status: 'Đang xử lý',dismissOnTap: false,maskType: EasyLoadingMaskType.black);
 
@@ -276,9 +279,10 @@ class Ctl_Xuly extends GetxController{
       Ctl_Kqxs().onClose();
     }
 
-    if(Info_App.soNgayHetHan<1) {EasyLoading.showInfo('App đã hết hạn');return;}
 
     EasyLoading.show(status: "Đang tính toán...",dismissOnTap: false,maskType: EasyLoadingMaskType.black);
+
+
     MD_TinhToan tinhtoan = MD_TinhToan();
 
     try {

@@ -62,8 +62,10 @@ class WgtTextField extends StatelessWidget {
       ],
       decoration: InputDecoration(
           counterText: '',
-          filled: fillColor!=null ? true : false,
-          fillColor: fillColor,
+          // filled: fillColor!=null ? true : false,
+          // fillColor: fillColor,
+          filled: true,
+          fillColor: Colors.white,
           prefixIcon: icon,
           suffixIcon: suffixIcon,
           // border: OutlineInputBorder(

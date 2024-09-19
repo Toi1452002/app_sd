@@ -1,11 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:sd_pmn/config/router.dart';
-
-import '../config/server.dart';
+import 'package:sd_pmn/function/function.dart';
+import '../config/config.dart';
 
 class Wgt_Drawer extends StatelessWidget {
   const Wgt_Drawer({Key? key}) : super(key: key);
@@ -28,17 +26,19 @@ class Wgt_Drawer extends StatelessWidget {
               width: Get.width,
               child: DrawerHeader(decoration: const BoxDecoration(
                 color: Sv_Color.main
-              ),child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text('Mã khách: ${Info_App.MaKH}',style: TextStyle(color: Colors.white)),
-                  Text("Ngày HH: ${Info_App.ngayHetHan} (Còn ${Info_App.soNgayHetHan})",style: TextStyle(color: Colors.white),),
-                  Spacer(),
-                  Text("Phiên bản: ${Info_App.version}",style: const TextStyle(color: Colors.white60,fontSize: 12),)
-                ],
-              ),),
+              ),child: Obx((){
+                final iUser = infoUser.value;
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text('Mã HD: ${iUser.maHD}',style: TextStyle(color: Colors.white)),
+                    Text("Ngày HH: ${Helper.dMy(iUser.ngayHetHan)} (Còn ${iUser.soNgayCon})",style: TextStyle(color: Colors.white),),
+                    Spacer(),
+                    Text("Phiên bản: ${InfoApp.version}",style: const TextStyle(color: Colors.white60,fontSize: 12),)
+                  ],
+                );
+              }),),
             ),
             item(icon: const Icon(Icons.perm_contact_cal_rounded), title: "Danh sách khách",onTap: (){
               Get.back();

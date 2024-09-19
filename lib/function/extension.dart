@@ -47,7 +47,7 @@ Future<String> idDevice() async{
   try{
     if(Platform.isAndroid){
       AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-      Info_App.API_DEVICE = androidInfo.version.sdkInt;
+      InfoApp.API_DEVICE = androidInfo.version.sdkInt;
       return "${androidInfo.id}.${randomStr()}${randomNumber()}";
     }else if(Platform.isIOS){
       String ma = "MLGK.";

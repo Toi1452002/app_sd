@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:sd_pmn/config/config.dart';
 import 'package:sd_pmn/controllers/ctl_user.dart';
@@ -7,6 +8,16 @@ import '../../widgets/widgets.dart';
 class V_Login extends StatelessWidget {
     V_Login({super.key});
   CtlUser controller = Get.put(CtlUser());
+  final txtUserName = TextEditingController();
+  final txtPassword = TextEditingController();
+
+  void _onLogin(){
+    // try{
+      controller.onLogin(txtUserName.text, txtPassword.text);
+    // }catch(e){
+    //   EasyLoading.showToast("Đăng nhập thất bại");
+    // }
+  }
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -33,7 +44,7 @@ class V_Login extends StatelessWidget {
                   // hasBoder: false,
                   fillColor: Colors.white.withOpacity(.8),
                   icon: const Icon(Icons.person),
-                  controller: controller.tenDNCTL,
+                  controller: txtUserName,
                 ),
                 const SizedBox(
                   height: 10,
@@ -42,7 +53,7 @@ class V_Login extends StatelessWidget {
                   labelText: "Mật khẩu",
                   icon: const Icon(Icons.lock_outline),
                   fillColor: Colors.white.withOpacity(.8),
-                  controller: controller.matkhauDNCTL,
+                  controller: txtPassword,
                   obscureText: true,
                 ),
                 const SizedBox(
@@ -52,7 +63,7 @@ class V_Login extends StatelessWidget {
                     height: 40,
                     onPressed: () {
                       FocusScope.of(context).requestFocus(FocusNode());
-                      controller.onLogin();
+                      _onLogin();
                     },
                     text: "Đăng nhập"),
                 const SizedBox(height: 20,),

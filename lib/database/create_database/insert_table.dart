@@ -20,9 +20,9 @@ const String INSERT_T00_TuyChon = '''
 
 
 const String INSERT_T00_User = '''
-INSERT INTO T00_User (MaKH, UserName, PassWord, MaKichHoat, NgayHetHan, VinhVien) VALUES 
-( '', 'pmn', 'pmn79', '', '', 0),
-( '', '1', '1', '', '', 0)
+INSERT INTO T00_User (MaKH, UserName, PassWord, MaKichHoat, NgayHetHan) VALUES 
+( '', 'pmn', 'pmn79', '', ''),
+( '', '1', '1', '', '')
 ''';
 
 const String INSERT_T01_Giai = '''

@@ -112,12 +112,12 @@ class V_CaiDat extends StatelessWidget {
               "Tài khoản",
               onTap: () {
                 controller.clearTextChangePassword();
-                controller.taikhoanCTL.text = Info_App.Username;
-                if (Info_App.Username == 'pmn') {
+                controller.taikhoanCTL.text = infoUser.value.userName;
+                if (infoUser.value.userName == 'pmn') {
                   controller.onOpenDialogPMN();
                 }
                 Get.dialog(Dialog(
-                  child: Info_App.Username != 'pmn'
+                  child: infoUser.value.userName != 'pmn'
                       ? Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Column(

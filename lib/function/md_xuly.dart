@@ -8,11 +8,11 @@ hamXL(String tin, DateTime ngay,String mien)async {
   List<String> result = [];
   /// -----------------------------------------------------------------------------------------*
   tin = ThayKyTu_TV(tin.toLowerCase());
+
   List<Map> lstDThayThe = await db.loadData(sql:"SELECT CumTu, ThayThe From T01_TuKhoa Where SoDanhHang!='1'  Order by length(CumTu) desc");
   for (var x in lstDThayThe) {
     tin = tin.replaceAll(x['CumTu'], x['ThayThe']??' ');
   }
-
   tin = thayTuKhoa(tin).trim().replaceAll(RegExp(r'[^\w\s]+'),' ').replaceAll(RegExp(' +'), '.');
   /// -----------------------------------------------------------------------------------------*
   List<String> lstTin = tin.split(".");

@@ -7,7 +7,8 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:sd_pmn/config/server.dart';
+import 'package:sd_pmn/config/config.dart';
+// import 'package:sd_pmn/config/server.dart';
 import 'package:sd_pmn/controllers/ctl_khach.dart';
 import 'package:sd_pmn/function/extension.dart';
 import 'package:http/http.dart' as http;
@@ -18,8 +19,8 @@ import 'package:open_filex/open_filex.dart';
 class Ctl_CaiDat extends GetxController {
   ///Gọi hàm kết nối database
   ConnectDB db = ConnectDB();
-  ConnectDBW dbw = ConnectDBW();
-
+  // ConnectDBW dbw = ConnectDBW();
+  final _server = ConfigServer();
   final RxBool _kXc = false.obs;
 
   bool get kXc => _kXc.value;
@@ -73,19 +74,26 @@ class Ctl_CaiDat extends GetxController {
       if(khach.isEmpty){
         EasyLoading.showInfo('Không có khách');
       }else{
-        String fileName =  Info_App.MaKH;
-        var url = Uri.parse(API.pathJson);
-        final response = await http.post(url, body: {
-          'FileName': fileName,
-          'Status': 'saoluu',
-          'Data': jsonEncode({
+        String fileName =  infoUser.value.maHD.toString();
+        // var url = Uri.parse("http://192.168.1.3:8000/api_qlkhach/api/config.php");
+        final rps = await _server.postData(path: _server.config, type: 'saoluu', data: {
+          'fileName': fileName,
+          'data': jsonEncode({
             "khach": khach,
             "giakhach": giaKhach,
           })
         });
-        if (response.statusCode == 200) {
-          Future.delayed(const Duration(seconds: 2),
-                  () => EasyLoading.showSuccess("Sao lưu thành công"));
+        // final rps = await http.post(url, body: {
+        //   'fileName': fileName,
+        //   'type': 'saoluu',
+        //   'data': jsonEncode({
+        //     "khach": khach,
+        //     "giakhach": giaKhach,
+        //   })
+        // });
+        if (rps.statusCode == 200) {
+          // print(rps.data);
+          EasyLoading.showSuccess("Sao lưu thành công");
         } else {
           EasyLoading.showInfo("Sao lưu thất bại!");
         }
@@ -104,14 +112,18 @@ class Ctl_CaiDat extends GetxController {
       return;
     }
     EasyLoading.show(status: 'Loading...', dismissOnTap: false);
-    var url = Uri.parse(API.pathJson);
-    String fileName = Info_App.MaKH;
+    String fileName =  infoUser.value.maHD.toString();
     try{
-      final response = await http.post(url,
-          body: {'FileName': fileName, 'Status': 'khoiphuc', 'Data': ""});
-      if (response.statusCode == 200) {
-        if(response.body != 'false'){
-          Map data = jsonDecode(jsonDecode(response.body));
+      // final response = await http.post(url,
+      //     body: {'FileName': fileName, 'Status': 'khoiphuc', 'Data': ""});
+
+      final rps = await _server.getData(path: _server.config, type: 'khoiphuc', data: {
+        'fileName': fileName,
+      });
+      if (rps.statusCode == 200) {
+        if(rps.data != 'false'){
+          Map data = jsonDecode(jsonDecode(rps.data));
+
           List<dynamic> jsonKhach = data["khach"];
           List<dynamic> jsonGiaKhach = data["giakhach"];
 
@@ -158,14 +170,28 @@ class Ctl_CaiDat extends GetxController {
       // return;
     }
     try{
-      Map<String, dynamic> data = await dbw.loadRow(tblName: 'PHANMEM', condition: "MaSP = '${Info_App.maSP}'");
-      if(data.isNotEmpty &&  data['Version']!=Info_App.version){
-        WgtDialog(title: 'Cập nhật', text: 'Đã có phiên bản ${data['Version']}', onConfirm: (){
-          downloadFile("http://rgb.com.vn/flutterApp", data['FileName'], '/storage/emulated/0/Download');
-        });
-      }else{
-        EasyLoading.showToast('Không có bản cập nhật nào');
+      final rps = await _server.getData(path: _server.config, type: 'capnhat', data: {});
+      if(rps.statusCode==200){
+        final data = jsonDecode(jsonDecode(rps.data));
+        String version = data['fa-n'];
+        String fileName = InfoApp.fileName(version);
+        // print(version);
+        if(version != InfoApp.version){
+            WgtDialog(title: 'Cập nhật', text: 'Đã có phiên bản $version', onConfirm: (){
+              downloadFile("http://rgb.com.vn/flutterApp", fileName, '/storage/emulated/0/Download');
+            });
+        }else{
+          EasyLoading.showToast('Không có bản cập nhật nào');
+        }
       }
+      // Map<String, dynamic> data = await dbw.loadRow(tblName: 'PHANMEM', condition: "MaSP = '${InfoApp.maSP}'");
+      // if(data.isNotEmpty &&  data['Version']!=InfoApp.version){
+      //   WgtDialog(title: 'Cập nhật', text: 'Đã có phiên bản ${data['Version']}', onConfirm: (){
+      //     downloadFile("http://rgb.com.vn/flutterApp", data['FileName'], '/storage/emulated/0/Download');
+      //   });
+      // }else{
+      //   EasyLoading.showToast('Không có bản cập nhật nào');
+      // }
     }catch(e){
       EasyLoading.showInfo('Lỗi mở file $e');
     }
@@ -216,7 +242,7 @@ class Ctl_CaiDat extends GetxController {
     try{
       await db.updateCell(tbName: 'T00_User',field: 'UserName',value: taikhoanCTL.text,condition: "ID != 1");
       await db.updateCell(tbName: 'T00_User',field: 'Password',value: xn_matkhaumoiCTl.text,condition: "ID != 1").whenComplete((){
-        Info_App.Username = taikhoanCTL.text;
+        infoUser.value.userName = taikhoanCTL.text;
         Get.back();
         EasyLoading.showSuccess("Đổi mật khẩu thành công");
       });

@@ -12,6 +12,9 @@ import '../../widgets/wgt_textfield.dart';
 class V_KichHoat extends StatelessWidget {
   V_KichHoat({super.key});
   CtlUser controller = Get.put(CtlUser());
+  final txtMaKichHoat = TextEditingController();
+
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -36,25 +39,25 @@ class V_KichHoat extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const SizedBox(height: 10,),
-                  WgtTextField(
-                    enable: false,
-                    textAlign: TextAlign.center,
-                    controller: TextEditingController(text: Info_App.idDevice),
-                  ),
-                  const SizedBox(height: 10,),
-                  Wgt_button(onPressed: (){
-                    Clipboard.setData(ClipboardData(text: Info_App.idDevice));
-                    EasyLoading.showToast('Đã sao chép');
-                  }, text: 'Copy',height: 40,),
+                  // const SizedBox(height: 10,),
+                  // WgtTextField(
+                  //   enable: false,
+                  //   textAlign: TextAlign.center,
+                  //   controller: TextEditingController(text: Info_App.idDevice),
+                  // ),
+                  // const SizedBox(height: 10,),
+                  // Wgt_button(onPressed: (){
+                  //   Clipboard.setData(ClipboardData(text: Info_App.idDevice));
+                  //   EasyLoading.showToast('Đã sao chép');
+                  // }, text: 'Copy',height: 40,),
                   const SizedBox(height: 40,),
                   WgtTextField(
-                    controller: controller.makichhoatCTL,
+                    controller: txtMaKichHoat,
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 10,),
                   Wgt_button(onPressed: (){
-                    controller.onKichHoat();
+                    controller.onKichHoat(txtMaKichHoat.text);
                   }, text: 'Kích hoạt',height: 40),
                   const SizedBox(height: 10,),
                 ],

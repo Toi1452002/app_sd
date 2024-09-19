@@ -1,11 +1,14 @@
 // ignore_for_file: camel_case_types
 
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:sd_pmn/config/config.dart';
 import 'package:sd_pmn/config/router.dart';
+import 'package:sd_pmn/database/auth_data.dart';
 import 'package:sd_pmn/database/connect_dbw.dart';
 import 'package:sd_pmn/database/db_connect.dart';
 import 'package:sd_pmn/function/extension.dart';
@@ -14,11 +17,12 @@ import 'package:sd_pmn/models/mdl_kqxs.dart';
 import '../config/server.dart';
 import '../function/hamchung.dart';
 import '../function/md_laykqxs.dart';
+import '../models/models.dart';
 
 class Ctl_Kqxs extends GetxController {
   ///Gọi hàm kết nối database
   ConnectDB db = ConnectDB();
-  ConnectDBW dbw = ConnectDBW();
+  // ConnectDBW dbw = ConnectDBW();
 
   ///-------------------------------------------
   final RxString _mien = "N".obs;
@@ -75,57 +79,93 @@ class Ctl_Kqxs extends GetxController {
 
   onGetKqxs() async {
     disableBtn.value = true;
-    if(!await hasNetwork()) { /// Nếu không có mạng
-      Map<String,dynamic> user = await db.loadRow(tblName: 'T00_User',Condition: "ID = 2");
-      DateTime ngaylam = DateTime.now();
-      DateTime ngayhethan = DateTime.parse(user['NgayHetHan']);
-      if(Info_App.ngayHetHan!='#'){
-        Info_App.soNgayHetHan = ngayhethan.difference(ngaylam).inDays;/// Cập nhật số ngày hết hạn nếu không có mạng
-      }
-      // EasyLoading.showInfo(Sv_String.noHasNetwork);
+
+    final iUser = infoUser.value;
+    final auth = AuthData();
+    // final server = ConfigServer();
+
+    if(!await hasNetwork()){//Khon co mang
+      EasyLoading.showInfo(Sv_String.noHasNetwork);
+      String ngayHH = await auth.getNgayHetHan();
+      infoUser.value.soNgayCon = auth.getSoNgayConLai(ngayHH);
       // return;
     }else{
-      ///Cập nhật User
-      Map<String, dynamic> user = await dbw.loadRow(tblName: 'KHACH_SD', condition: "MaKH = '${Info_App.MaKH}'  AND TrangThai = 1 AND DaXoa = 0");
-      // print("======================================$user");
+      try{
+        final rps = await auth.xacThuc(iUser.maKichHoat);
+        if(rps.statusCode == 200){
+          final data = jsonDecode(rps.data);
+          if(data!=false){
+            print(data);
+            await auth.updateNgayHetHan(data['NgayHetHan']);
 
-      if(user.isNotEmpty){
-        await db.updateCell(tbName: 'T00_User',field: 'NgayHetHan',value: user['NgayHetHan']);
-        await dbw.updateData(tbName: 'KHACH_SD', field: 'NgayLamViec',value: DateFormat('yyyy-MM-dd').format(DateTime.now()),condition: "MaKH = '${user['MaKH']}'").whenComplete((){
-          DateTime ngayhethan = DateTime.parse(user['NgayHetHan']);
-          DateTime ngaylamviec = DateFormat('yyyy-MM-dd').parse(DateTime.now().toString());
-          int soNgayHetHan = ngayhethan.difference(ngaylamviec).inDays;
-          if(Info_App.ngayHetHan!='#'){
-            Info_App.ngayHetHan = DateFormat('dd/MM/yyyy').format(DateTime.parse(user['NgayHetHan']));
-            Info_App.soNgayHetHan = soNgayHetHan;
+            infoUser.value = InfoUser(
+                maHD: int.parse(data['ID']),
+                ngayHetHan: data['NgayHetHan'],
+                soNgayCon: auth.getSoNgayConLai(data['NgayHetHan']),
+                maKichHoat: iUser.maKichHoat,
+                userName: iUser.userName
+            );
           }
-
-          Info_App.MaKH = user['MaKH'];
-        }).catchError((e){
-          EasyLoading.showInfo('Lỗi $e');
-        });
-
-
+        }
+      }catch(e){
+        throw Exception(e);
       }
+    }
 
-      else{
+
+
+
+    // if(!await hasNetwork()) { /// Nếu không có mạng
+    //   Map<String,dynamic> user = await db.loadRow(tblName: 'T00_User',Condition: "ID = 2");
+    //   DateTime ngaylam = DateTime.now();
+    //   DateTime ngayhethan = DateTime.parse(user['NgayHetHan']);
+    //   if(Info_App.ngayHetHan!='#'){
+    //     Info_App.soNgayHetHan = ngayhethan.difference(ngaylam).inDays;/// Cập nhật số ngày hết hạn nếu không có mạng
+    //   }
+      // EasyLoading.showInfo(Sv_String.noHasNetwork);
+      // return;
+    // }else{
+    //   ///Cập nhật User
+    //   Map<String, dynamic> user = await dbw.loadRow(tblName: 'KHACH_SD', condition: "MaKH = '${Info_App.MaKH}'  AND TrangThai = 1 AND DaXoa = 0");
+    //   // print("======================================$user");
+    //
+    //   if(user.isNotEmpty){
+    //     await db.updateCell(tbName: 'T00_User',field: 'NgayHetHan',value: user['NgayHetHan']);
+    //     await dbw.updateData(tbName: 'KHACH_SD', field: 'NgayLamViec',value: DateFormat('yyyy-MM-dd').format(DateTime.now()),condition: "MaKH = '${user['MaKH']}'").whenComplete((){
+    //       DateTime ngayhethan = DateTime.parse(user['NgayHetHan']);
+    //       DateTime ngaylamviec = DateFormat('yyyy-MM-dd').parse(DateTime.now().toString());
+    //       int soNgayHetHan = ngayhethan.difference(ngaylamviec).inDays;
+    //       if(Info_App.ngayHetHan!='#'){
+    //         Info_App.ngayHetHan = DateFormat('dd/MM/yyyy').format(DateTime.parse(user['NgayHetHan']));
+    //         Info_App.soNgayHetHan = soNgayHetHan;
+    //       }
+    //
+    //       Info_App.MaKH = user['MaKH'];
+    //     }).catchError((e){
+    //       EasyLoading.showInfo('Lỗi $e');
+    //     });
+    //
+    //
+    //   }
+    //
+    //   else{
         // EasyLoading.showInfo('Không tìm thấy thiết bị');
         // Future.delayed(const Duration(seconds: 2),(){
         //   Get.offAndToNamed(routerName.v_login);
         // });
         // Map<String,dynamic> user = await db.loadRow(tblName: 'T00_User',Condition: "ID = 2");
-        DateTime ngaylam = DateTime.now();
-        DateTime ngayhethan = DateTime.now();
-        if(Info_App.ngayHetHan=='null'){
-          Info_App.soNgayHetHan = 1;/// Cập nhật số ngày hết hạn nếu không có mạng
-
-        }
-        else if(Info_App.ngayHetHan!='#'){
-          Info_App.soNgayHetHan = ngayhethan.difference(ngaylam).inDays;/// Cập nhật số ngày hết hạn nếu không có mạng
-        }
+        // DateTime ngaylam = DateTime.now();
+        // DateTime ngayhethan = DateTime.now();
+        // if(Info_App.ngayHetHan=='null'){
+        //   Info_App.soNgayHetHan = 1;/// Cập nhật số ngày hết hạn nếu không có mạng
+        //
+        // }
+        // else if(Info_App.ngayHetHan!='#'){
+        //   Info_App.soNgayHetHan = ngayhethan.difference(ngaylam).inDays;/// Cập nhật số ngày hết hạn nếu không có mạng
+        // }
         // return;
-      }
-    }
+    //   }
+    // }
 
 
 
@@ -180,7 +220,7 @@ class Ctl_Kqxs extends GetxController {
             }
             List<Map<String, dynamic>> lstInsertJson = lstInsert.map((e) => e.toMap()).toList();
             if(await db.dCount('TXL_KQXS',Condition: "Ngay = '$strNgay' AND Mien = '${_mien.value}'") == 0 ){
-              log('---Insert KQXS----');
+              // log('---Insert KQXS----');
               await db.insertList(lstData: lstInsertJson, tbName: "TXL_KQXS",fieldToString: 'KQso');
             }
 

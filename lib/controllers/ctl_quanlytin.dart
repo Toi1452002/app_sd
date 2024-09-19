@@ -171,7 +171,7 @@ class Ctl_Quanlytin extends GetxController {
                 : NumberFormat('#,###').format(e['TienTrung']).toString(),
             'SLT': e['SoLanTrung'] == 0.0
                 ? ''
-                : NumberFormat('#,###').format(e['SoLanTrung']).toString(),
+                : e['SoLanTrung'].toString().formatDouble,
             // 'i':e['i']??0
           };
         }).toList();

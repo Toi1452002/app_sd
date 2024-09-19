@@ -246,7 +246,8 @@ String ThayKyTu_TV(String s) {
     'ỵ': 'y',
     '₫': 'd',
     '×': 'x',
-    'à': 'a'
+    'à': 'a',
+    'ð': 'd'
   };
   for (var x in TV.keys) {
     if (s.contains(x)) s = s.replaceAll(x, TV[x].toString());

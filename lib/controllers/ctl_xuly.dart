@@ -83,6 +83,8 @@ class Ctl_Xuly extends GetxController{
     onLoadTinNhan();
   }
 
+  List<Map<String,dynamic>> kqxs = [];
+
   onKiemLoi() async{
     if(infoUser.value.soNgayCon<1) {EasyLoading.showInfo('App đã hết hạn');return;}
 
@@ -91,6 +93,8 @@ class Ctl_Xuly extends GetxController{
     EasyLoading.show(status: 'Đang xử lý',dismissOnTap: false,maskType: EasyLoadingMaskType.black);
 
     try {
+      String strNgay = DateFormat("yyyy-MM-dd").format(_ngaylam.value);
+      kqxs = await db.loadData(tbName: 'TXL_KQXS',condition: "Ngay = '$strNgay' AND Mien = '${_mien.value[0]}'");
       /** Xử lý tin **/
       String tin = _tinController.value.text;
       tin = await hamXL(tin, _ngaylam.value, _mien.value[0]);
@@ -266,9 +270,7 @@ class Ctl_Xuly extends GetxController{
 
   onTinhToan() async { /** Button tính toán **/
     _enableTinhToan.value = false;
-
     String strNgay = DateFormat("yyyy-MM-dd").format(_ngaylam.value);
-    List<Map<String,dynamic>> kqxs = await db.loadData(tbName: 'TXL_KQXS',condition: "Ngay = '$strNgay' AND Mien = '${_mien.value[0]}'");
 
     if(kqxs.isEmpty){ /** Chưa có kqxs **/
       Get.lazyPut(() => Ctl_Kqxs());
@@ -313,8 +315,8 @@ class Ctl_Xuly extends GetxController{
       });
     }
     catch(e){
-      throw Exception(e);
       EasyLoading.showInfo('Có lỗi khi tính toán');
+      throw Exception(e);
     }
     if(kqxs.isEmpty)EasyLoading.showToast('Chưa có kết quả xổ số!', toastPosition: EasyLoadingToastPosition.center);
 

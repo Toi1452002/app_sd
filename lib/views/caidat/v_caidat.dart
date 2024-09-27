@@ -95,9 +95,9 @@ class V_CaiDat extends StatelessWidget {
                     controller.onKhoiPhuc();
                   });
             }),
-            // const SizedBox(
-            //   height: 10,
-            // ),
+            const SizedBox(
+              height: 10,
+            ),
             Visibility(visible: Platform.isAndroid ,child:item(
               "Cập nhật ứng dụng",
               onTap: () {
@@ -113,6 +113,7 @@ class V_CaiDat extends StatelessWidget {
               onTap: () {
                 controller.clearTextChangePassword();
                 controller.taikhoanCTL.text = infoUser.value.userName;
+                // controller.taikhoanCTL.text = InfoApp.Username;
                 if (infoUser.value.userName == 'pmn') {
                   controller.onOpenDialogPMN();
                 }

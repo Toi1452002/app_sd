@@ -87,6 +87,7 @@ class Ctl_Xuly extends GetxController{
 
   onKiemLoi() async{
     if(infoUser.value.soNgayCon<1) {EasyLoading.showInfo('App đã hết hạn');return;}
+    // if(InfoApp.soNgayHetHan<1) {EasyLoading.showInfo('App đã hết hạn');return;}
 
 
     if(_tinController.value.text.isEmpty) { EasyLoading.showInfo("Chưa có tin!"); return; }

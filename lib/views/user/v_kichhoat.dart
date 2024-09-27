@@ -39,19 +39,20 @@ class V_KichHoat extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  // const SizedBox(height: 10,),
+                  const SizedBox(height: 10,),
                   // WgtTextField(
                   //   enable: false,
                   //   textAlign: TextAlign.center,
-                  //   controller: TextEditingController(text: Info_App.idDevice),
+                  //   controller: TextEditingController(text: InfoApp.idDevice),
                   // ),
                   // const SizedBox(height: 10,),
                   // Wgt_button(onPressed: (){
-                  //   Clipboard.setData(ClipboardData(text: Info_App.idDevice));
+                  //   Clipboard.setData(ClipboardData(text: InfoApp.idDevice));
                   //   EasyLoading.showToast('Đã sao chép');
                   // }, text: 'Copy',height: 40,),
-                  const SizedBox(height: 40,),
+                  // const SizedBox(height: 40,),
                   WgtTextField(
+                    hintText: 'Nhập mã kích hoạt',
                     controller: txtMaKichHoat,
                     textAlign: TextAlign.center,
                   ),

@@ -19,9 +19,9 @@ void main() async {
   /// Lấy version của app
   PackageInfo packageInfo = await PackageInfo.fromPlatform();
   InfoApp.version = packageInfo.version;
-  if(Platform.isAndroid){
+  // if(Platform.isAndroid){
     InfoApp.idDevice = await idDevice();
-  }
+  // }
 
 
   ///--------------------------------------

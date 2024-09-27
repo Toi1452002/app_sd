@@ -26,19 +26,21 @@ class Wgt_Drawer extends StatelessWidget {
               width: Get.width,
               child: DrawerHeader(decoration: const BoxDecoration(
                 color: Sv_Color.main
-              ),child: Obx((){
-                final iUser = infoUser.value;
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text('Mã HD: ${iUser.maHD}',style: TextStyle(color: Colors.white)),
-                    Text("Ngày HH: ${Helper.dMy(iUser.ngayHetHan)} (Còn ${iUser.soNgayCon})",style: TextStyle(color: Colors.white),),
-                    Spacer(),
-                    Text("Phiên bản: ${InfoApp.version}",style: const TextStyle(color: Colors.white60,fontSize: 12),)
-                  ],
-                );
-              }),),
+              ),child:
+                 Obx((){
+                   final iUser = infoUser.value;
+                   return Column(
+                     crossAxisAlignment: CrossAxisAlignment.start,
+                     mainAxisSize: MainAxisSize.min,
+                     children: [
+                       Text('Mã HD: ${iUser.maHD}',style: TextStyle(color: Colors.white)),
+                       Text("Ngày HH: ${Helper.dMy(iUser.ngayHetHan)} (Còn ${iUser.soNgayCon})",style: TextStyle(color: Colors.white),),
+                       Spacer(),
+                       Text("Phiên bản: ${InfoApp.version}",style: const TextStyle(color: Colors.white60,fontSize: 12),)
+                     ],
+                   );
+                 })
+             ,),
             ),
             item(icon: const Icon(Icons.perm_contact_cal_rounded), title: "Danh sách khách",onTap: (){
               Get.back();

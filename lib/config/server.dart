@@ -36,8 +36,8 @@ class Sv_String{
 }
 
 // class API{
-  // static String pathDB = "http://rgb.com.vn/web/php/connectDb.php";
-  // static String pathJson = "http://rgb.com.vn/web/php/wfile.php";
+//   static String pathDB = "http://rgb.com.vn/web/php/connectDb.php";
+//   static String pathJson = "http://rgb.com.vn/web/php/wfile.php";
   // static String pathDB = "http://192.168.1.7:8000/pmn_quanly/connectDb.php";
   // static String pathJson = "http://192.168.1.7:8000/pmn_quanly/wfile.php";
 // }

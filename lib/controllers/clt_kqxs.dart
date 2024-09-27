@@ -80,6 +80,9 @@ class Ctl_Kqxs extends GetxController {
   onGetKqxs() async {
     disableBtn.value = true;
 
+
+
+    ///New
     final iUser = infoUser.value;
     final auth = AuthData();
     // final server = ConfigServer();
@@ -95,7 +98,6 @@ class Ctl_Kqxs extends GetxController {
         if(rps.statusCode == 200){
           final data = jsonDecode(rps.data);
           if(data!=false){
-            print(data);
             await auth.updateNgayHetHan(data['NgayHetHan']);
 
             infoUser.value = InfoUser(
@@ -112,6 +114,8 @@ class Ctl_Kqxs extends GetxController {
       }
     }
 
+    ////
+
 
 
 
@@ -119,14 +123,14 @@ class Ctl_Kqxs extends GetxController {
     //   Map<String,dynamic> user = await db.loadRow(tblName: 'T00_User',Condition: "ID = 2");
     //   DateTime ngaylam = DateTime.now();
     //   DateTime ngayhethan = DateTime.parse(user['NgayHetHan']);
-    //   if(Info_App.ngayHetHan!='#'){
-    //     Info_App.soNgayHetHan = ngayhethan.difference(ngaylam).inDays;/// Cập nhật số ngày hết hạn nếu không có mạng
+    //   if(InfoApp.ngayHetHan!='#'){
+    //     InfoApp.soNgayHetHan = ngayhethan.difference(ngaylam).inDays;/// Cập nhật số ngày hết hạn nếu không có mạng
     //   }
-      // EasyLoading.showInfo(Sv_String.noHasNetwork);
-      // return;
+    //   EasyLoading.showInfo(Sv_String.noHasNetwork);
+    //   return;
     // }else{
     //   ///Cập nhật User
-    //   Map<String, dynamic> user = await dbw.loadRow(tblName: 'KHACH_SD', condition: "MaKH = '${Info_App.MaKH}'  AND TrangThai = 1 AND DaXoa = 0");
+    //   Map<String, dynamic> user = await dbw.loadRow(tblName: 'KHACH_SD', condition: "MaKH = '${InfoApp.MaKH}'  AND TrangThai = 1 AND DaXoa = 0");
     //   // print("======================================$user");
     //
     //   if(user.isNotEmpty){
@@ -135,12 +139,12 @@ class Ctl_Kqxs extends GetxController {
     //       DateTime ngayhethan = DateTime.parse(user['NgayHetHan']);
     //       DateTime ngaylamviec = DateFormat('yyyy-MM-dd').parse(DateTime.now().toString());
     //       int soNgayHetHan = ngayhethan.difference(ngaylamviec).inDays;
-    //       if(Info_App.ngayHetHan!='#'){
-    //         Info_App.ngayHetHan = DateFormat('dd/MM/yyyy').format(DateTime.parse(user['NgayHetHan']));
-    //         Info_App.soNgayHetHan = soNgayHetHan;
+    //       if(InfoApp.ngayHetHan!='#'){
+    //         InfoApp.ngayHetHan = DateFormat('dd/MM/yyyy').format(DateTime.parse(user['NgayHetHan']));
+    //         InfoApp.soNgayHetHan = soNgayHetHan;
     //       }
     //
-    //       Info_App.MaKH = user['MaKH'];
+    //       InfoApp.MaKH = user['MaKH'];
     //     }).catchError((e){
     //       EasyLoading.showInfo('Lỗi $e');
     //     });
@@ -149,21 +153,21 @@ class Ctl_Kqxs extends GetxController {
     //   }
     //
     //   else{
-        // EasyLoading.showInfo('Không tìm thấy thiết bị');
-        // Future.delayed(const Duration(seconds: 2),(){
-        //   Get.offAndToNamed(routerName.v_login);
-        // });
-        // Map<String,dynamic> user = await db.loadRow(tblName: 'T00_User',Condition: "ID = 2");
-        // DateTime ngaylam = DateTime.now();
-        // DateTime ngayhethan = DateTime.now();
-        // if(Info_App.ngayHetHan=='null'){
-        //   Info_App.soNgayHetHan = 1;/// Cập nhật số ngày hết hạn nếu không có mạng
-        //
-        // }
-        // else if(Info_App.ngayHetHan!='#'){
-        //   Info_App.soNgayHetHan = ngayhethan.difference(ngaylam).inDays;/// Cập nhật số ngày hết hạn nếu không có mạng
-        // }
-        // return;
+    //     EasyLoading.showInfo('Không tìm thấy thiết bị');
+    //     Future.delayed(const Duration(seconds: 2),(){
+    //       Get.offAndToNamed(routerName.v_login);
+    //     });
+    //     Map<String,dynamic> user = await db.loadRow(tblName: 'T00_User',Condition: "ID = 2");
+    //     DateTime ngaylam = DateTime.now();
+    //     DateTime ngayhethan = DateTime.now();
+    //     if(InfoApp.ngayHetHan=='null'){
+    //       InfoApp.soNgayHetHan = 1;/// Cập nhật số ngày hết hạn nếu không có mạng
+    //
+    //     }
+    //     else if(InfoApp.ngayHetHan!='#'){
+    //       InfoApp.soNgayHetHan = ngayhethan.difference(ngaylam).inDays;/// Cập nhật số ngày hết hạn nếu không có mạng
+    //     }
+    //     return;
     //   }
     // }
 

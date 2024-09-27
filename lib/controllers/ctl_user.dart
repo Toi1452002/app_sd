@@ -1,9 +1,13 @@
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:open_filex/open_filex.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:sd_pmn/database/auth_data.dart';
 import 'package:sd_pmn/database/connect_dbw.dart';
 import 'package:sd_pmn/models/models.dart';
@@ -31,7 +35,7 @@ class CtlUser extends GetxController {
   /// -----------------------------------------------------------------------------------------*
   /// Nhập mã kích hoạt
 
-  //final makichhoatCTL = TextEditingController();
+
 
   void onKichHoat(String maKichHoat) async{
     EasyLoading.show(status: 'Loading...', dismissOnTap: false);
@@ -66,62 +70,62 @@ class CtlUser extends GetxController {
     }
   }
 
-  // onKichHoat() async {
-  //   if (!await hasNetwork()) {
-  //     EasyLoading.showToast(Sv_String.noHasNetwork);
-  //     return;
-  //   }
-  //   if (makichhoatCTL.text.isEmpty || !makichhoatCTL.text.contains('-')) {
-  //     EasyLoading.showInfo('Mã không hợp lệ');
-  //     return;
-  //   }
-  //   EasyLoading.show(status: 'Loading...', dismissOnTap: false);
-  //
-  //   try {
-  //     String makh =
-  //         makichhoatCTL.text.substring(makichhoatCTL.text.lastIndexOf('-') + 1);
-  //     String mathietbi =
-  //         makichhoatCTL.text.substring(0, makichhoatCTL.text.lastIndexOf('-'));
-  //     if (mathietbi != Info_App.idDevice ||
-  //         makichhoatCTL.text == Info_App.idDevice) {
-  //       EasyLoading.showInfo('Mã không hợp lệ');
-  //       return;
-  //     }
-  //     Map<String, dynamic> data = await dbw.loadRow(
-  //         tblName: 'KHACH_SD',
-  //         condition:
-  //             "MaKH= '$makh' AND MaKichHoat = '${makichhoatCTL.text}' AND TrangThai = 0 AND DaXoa = 0");
-  //     if (data.isEmpty) {
-  //       EasyLoading.showInfo('Mã không hợp lệ');
-  //       return;
-  //     }
-  //     await dbw
-  //         .updateData(
-  //             tbName: 'KHACH_SD',
-  //             field: 'TrangThai',
-  //             value: 1,
-  //             condition: "MaKH = '$makh'")
-  //         .whenComplete(() async {
-  //       await db.updateCell(
-  //           field: 'MaKichHoat', value: makichhoatCTL.text, tbName: 'T00_User');
-  //       await db.updateCell(field: 'MaKH', value: makh, tbName: 'T00_User');
-  //       EasyLoading.showSuccess('Kích hoạt thành công');
-  //       Future.delayed(const Duration(seconds: 2),
-  //           () => Get.offAndToNamed(routerName.v_login));
-  //     }).catchError((e) {
-  //       EasyLoading.showInfo("Lỗi $e");
-  //     });
-  //   } catch (e) {
-  //     EasyLoading.showToast('Lỗi kích hoạt: $e');
-  //   }
-  // }
+//
+// final makichhoatCTL = TextEditingController();
+//   onKichHoat() async {
+//     if (!await hasNetwork()) {
+//       EasyLoading.showToast(Sv_String.noHasNetwork);
+//       return;
+//     }
+//     if (makichhoatCTL.text.isEmpty || !makichhoatCTL.text.contains('-')) {
+//       EasyLoading.showInfo('Mã không hợp lệ');
+//       return;
+//     }
+//     EasyLoading.show(status: 'Loading...', dismissOnTap: false);
+//
+//     try {
+//       String makh =
+//           makichhoatCTL.text.substring(makichhoatCTL.text.lastIndexOf('-') + 1);
+//       String mathietbi =
+//           makichhoatCTL.text.substring(0, makichhoatCTL.text.lastIndexOf('-'));
+//       if (mathietbi != InfoApp.idDevice ||
+//           makichhoatCTL.text == InfoApp.idDevice) {
+//         EasyLoading.showInfo('Mã không hợp lệ');
+//         return;
+//       }
+//       Map<String, dynamic> data = await dbw.loadRow(
+//           tblName: 'KHACH_SD',
+//           condition:
+//               "MaKH= '$makh' AND MaKichHoat = '${makichhoatCTL.text}' AND TrangThai = 0 AND DaXoa = 0");
+//       if (data.isEmpty) {
+//         EasyLoading.showInfo('Mã không hợp lệ');
+//         return;
+//       }
+//       await dbw
+//           .updateData(
+//               tbName: 'KHACH_SD',
+//               field: 'TrangThai',
+//               value: 1,
+//               condition: "MaKH = '$makh'")
+//           .whenComplete(() async {
+//         await db.updateCell(
+//             field: 'MaKichHoat', value: makichhoatCTL.text, tbName: 'T00_User');
+//         await db.updateCell(field: 'MaKH', value: makh, tbName: 'T00_User');
+//         EasyLoading.showSuccess('Kích hoạt thành công');
+//         Future.delayed(const Duration(seconds: 2),
+//             () => Get.offAndToNamed(routerName.v_login));
+//       }).catchError((e) {
+//         EasyLoading.showInfo("Lỗi $e");
+//       });
+//     } catch (e) {
+//       EasyLoading.showToast('Lỗi kích hoạt: $e');
+//     }
+//   }
 
   /// -----------------------------------------------------------------------------------------*
   /// -----------------------------------------------------------------------------------------*
   /// -----------------------------------------------------------------------------------------*
   /// Đăng nhập
-  // final tenDNCTL = TextEditingController();
-  // final matkhauDNCTL = TextEditingController();
 
   void onLogin(String userName, String passWord) async{
     if(userName == 'rgb' && passWord == 'datalysmanx'){
@@ -183,6 +187,8 @@ class CtlUser extends GetxController {
 
   }
 
+  // final tenDNCTL = TextEditingController();
+  // final matkhauDNCTL = TextEditingController();
   // onLogin() async {
   //   if (tenDNCTL.text == 'rgb' && matkhauDNCTL.text == 'datalysmanx') {
   //     onUpdateServer('null', 1, '0000', 'admin');
@@ -275,10 +281,10 @@ class CtlUser extends GetxController {
 
   // onUpdateServer(
   //     String ngayhethan, int soNgayHetHan, String MaKH, String Username) {
-  //   Info_App.ngayHetHan = ngayhethan;
-  //   Info_App.soNgayHetHan = soNgayHetHan;
-  //   Info_App.MaKH = MaKH;
-  //   Info_App.Username = Username;
+  //   InfoApp.ngayHetHan = ngayhethan;
+  //   InfoApp.soNgayHetHan = soNgayHetHan;
+  //   InfoApp.MaKH = MaKH;
+  //   InfoApp.Username = Username;
   //   Get.offAndToNamed(routerName.v_tabPage);
   //   EasyLoading.dismiss();
   //   onClose();
@@ -289,5 +295,78 @@ class CtlUser extends GetxController {
     // TODO: implement onClose
     super.onClose();
     Get.delete<CtlUser>();
+  }
+
+  onCapNhat() async {
+    if (!await hasNetwork()) {
+      EasyLoading.showToast(Sv_String.noHasNetwork);
+      return;
+    }
+
+    var status = await Permission.manageExternalStorage.status;
+    if(status.isDenied){
+      await Permission.manageExternalStorage.request();
+      // return;
+    }
+    try{
+      final rps = await _server.getData(path: _server.config, type: 'capnhat', data: {});
+      if(rps.statusCode==200){
+        final data = jsonDecode(jsonDecode(rps.data));
+        String version = data['fa-n'];
+        String fileName = InfoApp.fileName(version);
+        print(InfoApp.version);
+        if(version != InfoApp.version){
+          WgtDialog(title: 'Cập nhật', text: 'Đã có phiên bản $version', onConfirm: (){
+            downloadFile("http://rgb.com.vn/flutterApp", fileName, '/storage/emulated/0/Download');
+          });
+        }else{
+          EasyLoading.showToast('Không có bản cập nhật nào');
+        }
+      }
+      // Map<String, dynamic> data = await dbw.loadRow(tblName: 'PHANMEM', condition: "MaSP = '${InfoApp.maSP}'");
+      // if(data.isNotEmpty &&  data['Version']!=InfoApp.version){
+      //   WgtDialog(title: 'Cập nhật', text: 'Đã có phiên bản ${data['Version']}', onConfirm: (){
+      //     downloadFile("http://rgb.com.vn/flutterApp", data['FileName'], '/storage/emulated/0/Download');
+      //   });
+      // }else{
+      //   EasyLoading.showToast('Không có bản cập nhật nào');
+      // }
+    }catch(e){
+      EasyLoading.showInfo('Lỗi mở file $e');
+    }
+
+  }
+
+  Future<void> downloadFile(String url, String fileName, String dir) async {
+    Get.back();
+    EasyLoading.show(status: 'Đang cập nhật',dismissOnTap: false);
+    HttpClient httpClient = HttpClient();
+    File file;
+    String filePath = '';
+    String myUrl = '';
+    try {
+      myUrl = '$url/$fileName';
+      // print(myUrl);
+      var request = await httpClient.getUrl(Uri.parse(myUrl));
+      var status = await Permission.storage.isDenied;
+      if(status){
+        await Permission.storage.request();
+      }
+      var response = await request.close();
+      if(response.statusCode == 200) {
+        var bytes = await consolidateHttpClientResponseBytes(response);
+        filePath = '$dir/$fileName';
+        file = File(filePath);
+        await file.writeAsBytes(bytes);
+        await OpenFilex.open(filePath);
+      }
+      else {
+        EasyLoading.showInfo('Không tìm thấy ứng dụng!');
+      }
+    }
+    catch(ex){
+      EasyLoading.showInfo('Lỗi tải file $ex!');
+    }
+    EasyLoading.dismiss();
   }
 }

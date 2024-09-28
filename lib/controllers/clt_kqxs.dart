@@ -13,6 +13,7 @@ import 'package:sd_pmn/database/connect_dbw.dart';
 import 'package:sd_pmn/database/db_connect.dart';
 import 'package:sd_pmn/function/extension.dart';
 import 'package:sd_pmn/models/mdl_kqxs.dart';
+import 'package:sd_pmn/widgets/wgt_dialog.dart';
 
 import '../config/server.dart';
 import '../function/hamchung.dart';
@@ -107,6 +108,12 @@ class Ctl_Kqxs extends GetxController {
                 maKichHoat: iUser.maKichHoat,
                 userName: iUser.userName
             );
+          }else{
+            disableBtn.value = false;
+            WgtDialog(title: 'Thông báo', text: 'Mạng không ổn định, vui lòng đăng nhập lại', onConfirm: (){
+              Get.offAndToNamed(routerName.v_login);
+            });
+            return;
           }
         }
       }catch(e){

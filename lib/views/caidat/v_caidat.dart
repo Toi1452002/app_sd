@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:sd_pmn/config/server.dart';
 import 'package:sd_pmn/controllers/ctl_caidat.dart';
 import 'package:sd_pmn/controllers/ctl_xuly.dart';
+import 'package:sd_pmn/models/models.dart';
 
 import '../../widgets/widgets.dart';
 
@@ -95,9 +96,9 @@ class V_CaiDat extends StatelessWidget {
                     controller.onKhoiPhuc();
                   });
             }),
-            const SizedBox(
-              height: 10,
-            ),
+            // const SizedBox(
+            //   height: 10,
+            // ),
             Visibility(visible: Platform.isAndroid ,child:item(
               "Cập nhật ứng dụng",
               onTap: () {
@@ -105,9 +106,6 @@ class V_CaiDat extends StatelessWidget {
               },
 
             ),),
-            // const SizedBox(
-            //   height: 10,
-            // ),
             item(
               "Tài khoản",
               onTap: () {
@@ -186,6 +184,11 @@ class V_CaiDat extends StatelessWidget {
                     });
               },
             ),
+
+            SizedBox(height: 15,),
+            Text(infoUser.value.maKichHoat,style: TextStyle(
+              color: Colors.grey
+            ),)
           ],
         ),
       ),

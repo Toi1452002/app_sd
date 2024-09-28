@@ -12,6 +12,7 @@ void WgtDialog(
 
     ){
   Get.dialog(
+      barrierDismissible: false,
       Dialog(
         insetPadding: const EdgeInsets.symmetric(horizontal: 40),
         child: SizedBox(

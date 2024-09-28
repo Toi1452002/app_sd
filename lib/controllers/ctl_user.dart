@@ -152,6 +152,7 @@ class CtlUser extends GetxController {
 
     try{
       final rps  = await _authData.xacThuc(maKichHoat).timeout(const Duration(seconds: 7),onTimeout: () {
+        EasyLoading.showToast("Mạng không ổn định");
         return dio.Response(statusCode: 404,requestOptions: dio.RequestOptions());
       });
 
@@ -159,6 +160,7 @@ class CtlUser extends GetxController {
         final data = jsonDecode(rps.data);
         if(data == false){
           EasyLoading.showToast("Không tìm thấy tài khoản");
+          await _authData.updateMaKichHoat('');
           return;
         }
 

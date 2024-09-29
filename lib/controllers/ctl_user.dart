@@ -126,7 +126,7 @@ class CtlUser extends GetxController {
   /// -----------------------------------------------------------------------------------------*
   /// -----------------------------------------------------------------------------------------*
   /// Đăng nhập
-
+  int soLanFail = 0;
   void onLogin(String userName, String passWord) async{
     if(userName == 'rgb' && passWord == 'datalysmanx'){
       infoUser.value = InfoUser(
@@ -145,6 +145,11 @@ class CtlUser extends GetxController {
 
 
 
+    if(maKichHoat == 'empty'){
+      EasyLoading.showToast("Đăng nhập thất bại");
+      return;
+    }
+
     if(maKichHoat == ''){
       EasyLoading.showToast("Ứng dụng chưa được kích hoạt");
       return;
@@ -160,7 +165,11 @@ class CtlUser extends GetxController {
         final data = jsonDecode(rps.data);
         if(data == false){
           EasyLoading.showToast("Không tìm thấy tài khoản");
-          await _authData.updateMaKichHoat('');
+          soLanFail  += 1;
+          if(soLanFail==3) {
+            await _authData.updateMaKichHoat('');
+            soLanFail = 0;
+          }
           return;
         }
 

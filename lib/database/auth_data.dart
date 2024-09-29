@@ -17,7 +17,7 @@ class AuthData{
             tblName: 'T00_User',
             Condition:
                 "UserName = '$userName' AND PassWord = '$passWord'");
-        return user.isNotEmpty ? user['MaKichHoat'] : '';
+        return user.isNotEmpty ? user['MaKichHoat'] : 'empty';
   }
 
   Future<String> getNgayHetHan() async{
